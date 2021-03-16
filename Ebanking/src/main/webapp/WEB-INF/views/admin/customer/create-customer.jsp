@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ include file="/common/taglib.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,13 +9,13 @@
 </head>
 <body>
 	<h1>Create New Customer</h1>
-	<form action="<c:url value='/admin/profile/create'/>" method="post">
+	<form action="<c:url value='/admin/customer/create'/>" method="post">
 	  <div>    
 	    <label for="firstname"><b>First Name</b></label><br>
-	    <input type="text" placeholder="Enter First Name" name="firstname" required><br>
+	    <input type="text" placeholder="Enter First Name" name="firstName" required><br>
 	    
 	    <label for="lastname"><b>Last Name</b></label><br>
-	    <input type="text" placeholder="Enter Last Name" name="lastname" required><br>
+	    <input type="text" placeholder="Enter Last Name" name="lastName" required><br>
 	    
 	    <label for="gender"><b>Gender</b></label><br>
 	    <input type="text" placeholder="Enter Gender" name="gender" required><br>

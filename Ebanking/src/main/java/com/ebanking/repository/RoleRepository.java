@@ -1,5 +1,9 @@
 package com.ebanking.repository;
 
-public interface RoleRepository {
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.ebanking.entity.User;
+
+public interface RoleRepository extends JpaRepository<User, Long> {
 
 }

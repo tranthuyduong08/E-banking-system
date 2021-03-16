@@ -19,7 +19,7 @@ public class UserAPI {
 	private UserService userService;
 	
 	@RequestMapping(value="find_{id}" , method = RequestMethod.GET, produces = MimeTypeUtils.APPLICATION_JSON_VALUE)
-	public ResponseEntity<User> find(@PathVariable("id") int id) {
+	public ResponseEntity<User> find(@PathVariable("id") long id) {
 		try {
 			return new ResponseEntity<User>(userService.find(id),HttpStatus.OK);
 		} catch (Exception e){

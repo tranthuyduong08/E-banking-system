@@ -3,6 +3,7 @@ package com.ebanking.entity;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -21,7 +22,7 @@ public class Role {
 	@Column(name = "role")
 	private String role;
 	
-	@ManyToMany(mappedBy = "roles")
+	@ManyToMany(mappedBy = "roles", cascade=CascadeType.ALL)
     private List<User> users = new ArrayList<>();
 
 	public Role() {
