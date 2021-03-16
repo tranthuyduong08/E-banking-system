@@ -47,7 +47,7 @@ public class JPAConfig {
 	@Bean
 	public DataSource dataSource() {
 		DriverManagerDataSource dataSource = new DriverManagerDataSource();
-		dataSource.setDriverClassName("com.mysql.jdbc.Driver");
+		dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
 		dataSource.setUrl("jdbc:mysql://localhost:3306/e-banking?useSSL=false");
 		dataSource.setUsername("root");
 		dataSource.setPassword("Satori071256.");
@@ -59,8 +59,8 @@ public class JPAConfig {
 		//properties.setProperty("hibernate.hbm2ddl.auto", "create-drop");
 		//properties.setProperty("hibernate.hbm2ddl.auto", "create");
 		//properties.setProperty("hibernate.hbm2ddl.auto", "update");
-		properties.setProperty("hibernate.hbm2ddl.auto", "none");
-		//properties.setProperty("hibernate.enable_lazy_load_no_trans", "true");
+		//properties.setProperty("hibernate.hbm2ddl.auto", "none");
+		properties.setProperty("hibernate.enable_lazy_load_no_trans", "true");
 		return properties;
 	}
 }

@@ -1,13 +1,24 @@
 package com.ebanking.controller.admin;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.ebanking.service.UserService;
+import com.ebanking.dto.MyUser;
+import com.ebanking.entity.User;
+
 @Controller(value="adminController")
 public class AdminController {
 
+	@Autowired
+	private UserService userService;
+	
 // HOME CONTROLLER
 	@RequestMapping(value = "/admin", method = RequestMethod.GET)
 	public ModelAndView adminHomePage() {
@@ -17,8 +28,14 @@ public class AdminController {
 	
 // PROFILE CONTROLLER
 	@RequestMapping(value = "/admin/profile", method = RequestMethod.GET)
-	public ModelAndView adminProfile() {
+	public ModelAndView adminProfile(ModelMap modelMap) {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		MyUser myUser = (MyUser)authentication.getPrincipal();
+		long userId = myUser.getUserId();
+		User user = userService.find(userId);
+		
 		ModelAndView mav = new ModelAndView("admin/profile/profile");
+		modelMap.addAttribute("user", user);
 		return mav;
 	}
 	
@@ -30,7 +47,8 @@ public class AdminController {
 	
 // CUSTOMER CONTROLLER
 	@RequestMapping(value = "/admin/customer", method = RequestMethod.GET)
-	public ModelAndView adminViewCustomer() {
+	public ModelAndView adminViewCustomer(ModelMap modelMap) {
+		modelMap.put("user", userService.findAll());
 		ModelAndView mav = new ModelAndView("admin/customer/customer-list");
 		return mav;
 	}

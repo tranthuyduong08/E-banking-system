@@ -17,7 +17,7 @@ import javax.persistence.Table;
 public class Appointment {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
+	private Long id;
 	
 	@Column(name = "name")
 	private String name;
@@ -32,7 +32,7 @@ public class Appointment {
 	@JoinColumn(name ="user_id")
 	private User user;
 
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
 

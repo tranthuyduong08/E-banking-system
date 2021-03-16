@@ -16,7 +16,7 @@ import javax.persistence.Table;
 public class InterestRate {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
+	private Long id;
 	
 	@Column(name = "type")
 	private String type;
@@ -37,7 +37,7 @@ public class InterestRate {
 	@OneToMany(mappedBy="interestRate")
 	private List<CurrentAccount> currentAccount = new ArrayList<>();
 
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
 

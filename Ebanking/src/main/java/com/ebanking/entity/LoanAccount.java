@@ -15,7 +15,7 @@ import javax.persistence.Table;
 public class LoanAccount {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
+	private Long id;
 	
 	@Column(name = "tenor")
 	private String tenor;
@@ -44,7 +44,7 @@ public class LoanAccount {
 	@JoinColumn(name ="loan_interest_id")
 	private InterestRate interestRate;
 
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
 

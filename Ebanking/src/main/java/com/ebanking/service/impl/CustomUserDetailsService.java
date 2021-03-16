@@ -33,7 +33,7 @@ public class CustomUserDetailsService implements UserDetailsService {
 			authorities.add(new SimpleGrantedAuthority(role.getRole()));
 		}
 		MyUser myUser = new MyUser(user.getUsername(), user.getPassword(), 
-				true, true, true, true, authorities);
+				true, true, true, true, authorities, user.getId());
 		myUser.setFirstName(user.getFirstName());
 		myUser.setLastName(user.getLastName());
 		myUser.setGender(user.getGender());

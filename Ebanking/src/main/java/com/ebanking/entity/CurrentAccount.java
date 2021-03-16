@@ -22,7 +22,7 @@ import javax.persistence.Table;
 public class CurrentAccount {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
+	private Long id;
 	
 	@Column(name = "acc_no")
 	private String accNo;
@@ -48,7 +48,7 @@ public class CurrentAccount {
 	@OneToMany(mappedBy="currentAccount")
 	private List<Transaction> transactions = new ArrayList<>();
 
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
 

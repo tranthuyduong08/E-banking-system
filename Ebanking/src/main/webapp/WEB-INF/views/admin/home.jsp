@@ -1,3 +1,4 @@
+<%@ page import="com.ebanking.util.SecurityUtils" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -7,6 +8,6 @@
 <title>E-Banking</title>
 </head>
 <body>
-<h1>Welcome admin! </h1>
+<h1>Welcome Admin <%=SecurityUtils.getPrincipal().getFirstName()%> <%=SecurityUtils.getPrincipal().getLastName() %>! </h1>
 </body>
 </html>

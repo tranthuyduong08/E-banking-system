@@ -11,58 +11,58 @@
 <h1>Profile</h1>
 <div>
 	<div>
-		<label>First Name</label>
-		<a></a>
+		<label>First Name: </label>
+		<a>${user.firstName}</a>
 	</div>
 	
 	<div>
-		<label>Last Name</label>
-		<a></a>
+		<label>Last Name: </label>
+		<a>${user.lastName}</a>
 	</div>
 	
 	<div>
-		<label>Gender</label>
-		<a></a>
+		<label>Gender: </label>
+		<a>${user.gender}</a>
 	</div>
 	
 	<div>
-		<label>DOB</label>
-		<a></a>
+		<label>DOB: </label>
+		<a>${user.dob}</a>
 	</div>
 	
 	<div>
-		<label>Email</label>
-		<a></a>
+		<label>Email: </label>
+		<a>${user.email}</a>
 	</div>
 	
 	<div>
-		<label>Phone</label>
-		<a></a>
+		<label>Phone: </label>
+		<a>${user.phone}</a>
 	</div>
 	
 	<div>
-		<label>Nationality</label>
-		<a></a>
+		<label>Nationality: </label>
+		<a>${user.nationality}</a>
 	</div>
 	
 	<div>
-		<label>City</label>
-		<a></a>
+		<label>City: </label>
+		<a>${user.city}</a>
 	</div>
 	
 	<div>
-		<label>Address</label>
-		<a></a>
+		<label>Address: </label>
+		<a>${user.address}</a>
 	</div>
 	
 	<div>
-		<label>Salary</label>
-		<a></a>
+		<label>Salary: </label>
+		<a>${user.salary}</a>
 	</div>
 	
 	<div>
-		<label>Username</label>
-		<a></a>
+		<label>Username: </label>
+		<a>${user.username}</a>
 	</div>
 </div>
 <a href="<c:url value='/admin/profile/edit'/>">Edit Profile</a>

@@ -1,12 +1,23 @@
 package com.ebanking.controller.customer;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.ebanking.dto.MyUser;
+import com.ebanking.entity.User;
+import com.ebanking.service.UserService;
+
 @Controller(value="customerController")
 public class CustomerController {
+	
+	@Autowired
+	private UserService userService;
 	
 // HOME CONTROLLER
 	@RequestMapping(value = "/customer", method = RequestMethod.GET)
@@ -17,8 +28,14 @@ public class CustomerController {
 	
 // PROFILE CONTROLLER
 	@RequestMapping(value = "/customer/profile", method = RequestMethod.GET)
-	public ModelAndView customerProfile() {
+	public ModelAndView customerProfile(ModelMap modelMap) {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		MyUser myUser = (MyUser)authentication.getPrincipal();
+		long userId = myUser.getUserId();
+		User user = userService.find(userId);
+		
 		ModelAndView mav = new ModelAndView("customer/profile/profile");
+		modelMap.addAttribute("user", user);
 		return mav;
 	}
 	

@@ -17,7 +17,7 @@
 			<th>Gender</th>
 			<th>Dob</th>
 			<th>Email</th>
-			<th>Contact</th>
+			<th>Phone</th>
 			<th>Nationality</th>
 			<th>City</th>
 			<th>Address</th>
@@ -27,23 +27,25 @@
 			<th></th>
 			<th></th>
 		</tr>
+		<c:forEach var="user" items="${user}" varStatus="i">
 		<tr>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
+			<td>${i.index +1 }</td>
+			<td>${user.firstName }</td>
+			<td>${user.lastName }</td>
+			<td>${user.gender }</td>
+			<td>${user.dob }</td>
+			<td>${user.email }</td>
+			<td>${user.phone }</td>
+			<td>${user.nationality }</td>
+			<td>${user.city }</td>
+			<td>${user.address }</td>
+			<td>${user.salary }</td>
+			<td>${user.username }</td>
+			<td>${user.password }</td>
 			<td><a href="<c:url value='/admin/customer/edit'/>">Edit</a></td>
 			<td><a href="<c:url value='/admin/customer/delete'/>">Delete</a></td>
 		</tr>
+		</c:forEach>
 	</table>
 	<a href="<c:url value='/admin/customer/create'/>">Create new customer</a>
 </body>

@@ -7,7 +7,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 
 public class MyUser extends User{
-	//private final int userId;
+	private final long userId;
 	private String firstName;
 	private String lastName;
 	private String gender;
@@ -19,22 +19,22 @@ public class MyUser extends User{
 	private String phone;
 	private int salary;
 	
-	/*public MyUser(String username, String password, boolean enabled, boolean accountNonExpired,
+	public MyUser(String username, String password, boolean enabled, boolean accountNonExpired,
 			boolean credentialsNonExpired, boolean accountNonLocked,
-			Collection<? extends GrantedAuthority> authorities, int userId ) {
+			Collection<? extends GrantedAuthority> authorities, long userId ) {
 		super(username, password, enabled, accountNonExpired, credentialsNonExpired, accountNonLocked, authorities);
 		this.userId = userId;
-	}*/
+	}
 	
-	public MyUser(String username, String password, boolean enabled, boolean accountNonExpired,
+	/*public MyUser(String username, String password, boolean enabled, boolean accountNonExpired,
 			boolean credentialsNonExpired, boolean accountNonLocked,
 			Collection<? extends GrantedAuthority> authorities) {
 		super(username, password, enabled, accountNonExpired, credentialsNonExpired, accountNonLocked, authorities);
-	}
-
-	/*public int getUserId() {
-		return userId;
 	}*/
+
+	public long getUserId() {
+		return userId;
+	}
 
 	public String getFirstName() {
 		return firstName;

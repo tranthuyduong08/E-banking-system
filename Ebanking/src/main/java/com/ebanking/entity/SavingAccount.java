@@ -17,7 +17,7 @@ import javax.persistence.Table;
 public class SavingAccount {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
+	private Long id;
 	
 	@Column(name = "initialAmount")
 	private Integer initialAmount;
@@ -44,7 +44,7 @@ public class SavingAccount {
 	private InterestRate interestRate;
 	
 
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
 
