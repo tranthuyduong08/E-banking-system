@@ -7,7 +7,10 @@ import org.springframework.stereotype.Service;
 import com.ebanking.entity.Role;
 import com.ebanking.entity.User;
 import com.ebanking.service.UserService;
+import com.ebanking.repository.CurrentAccountRepository;
+import com.ebanking.repository.LoanAccountRepository;
 import com.ebanking.repository.RoleRepository;
+import com.ebanking.repository.SavingAccountRepository;
 import com.ebanking.repository.UserRepository;
 
 @Service("userService")
@@ -18,6 +21,15 @@ public class UserServiceImpl implements UserService {
 	
 	@Autowired
 	private RoleRepository roleRepository;
+	
+	@Autowired
+	private CurrentAccountRepository currentAccountRepository;
+	
+	@Autowired
+	private SavingAccountRepository savingAccountRepository;
+	
+	@Autowired
+	private LoanAccountRepository loanAccountRepository;
 	
 	@Autowired
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
@@ -35,7 +47,6 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public void hash(User user) {
 		user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));	
-		
 	}
 
 	@Override
@@ -51,7 +62,6 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public void delete(long id) {
 		userRepository.delete(id);
-		
 	}
 
 	@Override
@@ -79,6 +89,13 @@ public class UserServiceImpl implements UserService {
 		role.setRole("CUSTOMER");
 		user.getRoles().remove(role);
 		userRepository.delete(user);
+	}
+
+	@Override
+	public int countAccount() {
+		long count = 0;
+		count = currentAccountRepository.count() + savingAccountRepository.count() + loanAccountRepository.count();
+		return (int) count;
 	}
 
 }

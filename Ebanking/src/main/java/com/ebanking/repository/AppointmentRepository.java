@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.ebanking.entity.Appointment;
 
 @Repository("appointmentRepository")
-public interface AppointmentRepository extends JpaRepository<Appointment, Integer> {
+public interface AppointmentRepository extends JpaRepository<Appointment, Long> {
 	
 }

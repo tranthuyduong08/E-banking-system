@@ -1,31 +1,80 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="/common/taglib.jsp" %>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>E-Banking</title>
-</head>
-<body>
-	<h1>Loan Account</h1>
-	<table>
-		<tr>
-			<th>Id</th>
-			<th>Total Amount</th>
-			<th>Tenor</th>
-			<th>Open Date</th>
-			<th>Description</th>
-		</tr>
-		<tr>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-		</tr>
-	</table>
-	<a href="<c:url value='/customer/loan-account/create'/>">Create New Loan Account</a>
-</body>
-</html>
+<div class="breadcrumbs">
+	<div class="breadcrumbs-inner">
+		<div class="row m-0">
+			<div class="col-sm-4">
+				<div class="page-header float-left">
+					<div class="page-title">
+						<h1>LOAN ACCOUNT</h1>
+					</div>
+				</div>
+			</div>
+			<div class="col-sm-8">
+				<div class="page-header float-right">
+					<div class="page-title">
+						<ol class="breadcrumb text-right">
+							<li><a href="<c:url value='/admin'/>">Dashboard</a></li>
+							<li><a href="#">Account</a></li>
+							<li class="active">Loan Account</li>
+						</ol>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="content">
+	<div class="animated fadeIn">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="card">
+					<div class="card-header">
+						<strong class="card-title">Loan Account List</strong>
+					</div>
+					<div class="card-body">
+						<table id="bootstrap-data-table"
+							class="table table-striped table-bordered">
+							<thead>
+								<tr>
+									<th>#</th>
+									<th>Account Number</th>
+									<th>Tenor</th>
+									<th>Total Amount</th>
+									<th>Remain Amount</th>	
+									<th>Open Date</th>
+									<th>Close Date</th>
+									<th>Status</th>
+								</tr>
+							</thead>
+							<tbody>
+								<c:forEach var="loanAccounts" items="${loanAccounts}" varStatus="i">
+									<tr>
+										<td>${i.index +1 }</td>
+										<td>${loanAccounts.accNo}</td>
+										<td>${loanAccounts.tenor}</td>
+										<td>${loanAccounts.totalAmount}</td>
+										<td>${loanAccounts.remainAmount}</td>
+										<td>${loanAccounts.openDate}</td>
+										<td>${loanAccounts.closeDate}</td>
+										<td><span class="badge badge-pending">Active</span></td>										
+									</tr>
+								</c:forEach>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row justify-content-center">
+			<div class="col-lg-4">
+				<a href="<c:url value='/customer/loan-account/create'/>">
+					<button type="button" class="btn btn-success btn-lg btn-block"><i class="fa fa-plus-circle"></i> Make New Loan Account</button>
+				</a>
+			</div>
+		</div>
+	</div>
+	<!-- .animated -->
+</div>
+<!-- .content -->

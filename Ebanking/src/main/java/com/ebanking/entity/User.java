@@ -17,6 +17,10 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
 @Table(name = "user")
@@ -25,9 +29,11 @@ public class User {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
+	@NotEmpty
 	@Column(name = "username")
 	private String username;
 
+	@NotEmpty	
 	@Column(name = "password")
 	private String password;
 	
@@ -43,9 +49,12 @@ public class User {
 	@Column(name = "dob")
 	private Date dob;
 	
+	@NotEmpty
+	@Email
 	@Column(name = "email")
 	private String email;
 	
+	@NotEmpty
 	@Column(name = "phone")
 	private String phone;
 	
@@ -186,5 +195,39 @@ public class User {
 
 	public void setRoles(List<Role> roles) {
 		this.roles = roles;
+	}
+
+	public CurrentAccount getCurrentAccounts() {
+		return currentAccounts;
+	}
+
+	public void setCurrentAccounts(CurrentAccount currentAccounts) {
+		this.currentAccounts = currentAccounts;
+	}
+
+	public List<SavingAccount> getSavingAccounts() {
+		return savingAccounts;
+	}
+
+	public void setSavingAccounts(List<SavingAccount> savingAccounts) {
+		this.savingAccounts = savingAccounts;
+	}
+
+	public List<LoanAccount> getLoanAccounts() {
+		return loanAccounts;
+	}
+
+	public void setLoanAccounts(List<LoanAccount> loanAccounts) {
+		this.loanAccounts = loanAccounts;
+	}
+
+	public List<Appointment> getAppointment() {
+		return appointment;
+	}
+
+	public void setAppointment(List<Appointment> appointment) {
+		this.appointment = appointment;
 	}	
+	
+	
 }

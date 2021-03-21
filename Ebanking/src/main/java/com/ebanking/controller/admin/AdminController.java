@@ -2,7 +2,6 @@ package com.ebanking.controller.admin;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -17,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.ebanking.service.AppointmentService;
 import com.ebanking.service.UserService;
 import com.ebanking.dto.MyUser;
 import com.ebanking.entity.User;
@@ -26,6 +26,9 @@ public class AdminController {
 
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	private AppointmentService appointmentService;
 	
 // HOME CONTROLLER
 	@RequestMapping(value = "/admin", method = RequestMethod.GET)
@@ -41,15 +44,47 @@ public class AdminController {
 		MyUser myUser = (MyUser)authentication.getPrincipal();
 		long userId = myUser.getUserId();
 		User user = userService.find(userId);
-		
+		 
 		ModelAndView mav = new ModelAndView("admin/profile/profile");
 		modelMap.addAttribute("user", user);
 		return mav;
 	}
 	
 	@RequestMapping(value = "/admin/profile/edit", method = RequestMethod.GET)
-	public ModelAndView adminEditProfile() {
+	public ModelAndView adminEditProfile(ModelMap modelMap) {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		MyUser myUser = (MyUser)authentication.getPrincipal();
+		long userId = myUser.getUserId();
+		User user = userService.find(userId);
+		
 		ModelAndView mav = new ModelAndView("admin/profile/edit-profile");
+		modelMap.addAttribute("user", user);
+		return mav;
+	}
+	
+	@RequestMapping(value = "/admin/profile/edit", method = RequestMethod.POST)
+	public String adminEditProfile(HttpServletRequest request){
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		MyUser myUser = (MyUser)authentication.getPrincipal();
+		long userId = myUser.getUserId();
+		User user = userService.find(userId);
+		
+		user.setEmail(request.getParameter("email").trim());
+		user.setPhone(request.getParameter("phone").trim());		
+		userService.save(user);
+		
+		return "redirect:/admin/profile";
+	}
+	
+	@RequestMapping(value = "/admin/profile/change-password", method = RequestMethod.GET)
+	public ModelAndView adminChangePassword(ModelMap modelMap) {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		MyUser myUser = (MyUser)authentication.getPrincipal();
+		long userId = myUser.getUserId();
+		User user = userService.find(userId);
+		
+		ModelAndView mav = new ModelAndView("admin/profile/change-password");
+		modelMap.addAttribute("user", user);
 		return mav;
 	}
 	
@@ -57,6 +92,7 @@ public class AdminController {
 	@RequestMapping(value = "/admin/customer", method = RequestMethod.GET)
 	public ModelAndView adminViewCustomer(ModelMap modelMap) {
 		modelMap.put("user", userService.findAll());
+		modelMap.addAttribute("accountNo", userService.countAccount());
 		ModelAndView mav = new ModelAndView("admin/customer/customer-list");
 		return mav;
 	}
@@ -111,27 +147,56 @@ public class AdminController {
 	}
 
 // ACCOUNT CONTROLLER
-	@RequestMapping(value = "/admin/interest-rate", method = RequestMethod.GET)
-	   public ModelAndView adminViewInterestRate() {
-	      ModelAndView mav = new ModelAndView("admin/interest-rate-list");
-		      return mav;
-		   }
-	
 	@RequestMapping(value = "/admin/current-account", method = RequestMethod.GET)
-	   public ModelAndView adminViewCurrentAccount() {
-	      ModelAndView mav = new ModelAndView("admin/account-list");
-		      return mav;
-		   }
-	
+	public ModelAndView adminViewCurrentAccount() {
+		ModelAndView mav = new ModelAndView("admin/account/current-account-list");
+		return mav;
+	}
+
 	@RequestMapping(value = "/admin/saving-account", method = RequestMethod.GET)
-	   public ModelAndView adminViewSavingAccount() {
-	      ModelAndView mav = new ModelAndView("admin/account-list");
-		      return mav;
-		   }
-	
+	public ModelAndView adminViewSavingAccount() {
+		ModelAndView mav = new ModelAndView("admin/account/saving-account-list");
+		return mav;
+	}
+
 	@RequestMapping(value = "/admin/loan-account", method = RequestMethod.GET)
-	   public ModelAndView adminViewLoanAccount() {
-	      ModelAndView mav = new ModelAndView("admin/account-list");
-		      return mav;
-		   }
+	public ModelAndView adminViewLoanAccount() {
+		ModelAndView mav = new ModelAndView("admin/account/loan-account-list");
+		return mav;
+	}
+	
+// TRANSACTION CONTROLLER
+	@RequestMapping(value = "/admin/transaction/deposit", method = RequestMethod.GET)
+	public ModelAndView adminViewDeposit() {
+		ModelAndView mav = new ModelAndView("admin/transaction/deposit-list");
+		return mav;
+	}
+	
+	@RequestMapping(value = "/admin/transaction/withdraw", method = RequestMethod.GET)
+	public ModelAndView adminViewWithdraw() {
+		ModelAndView mav = new ModelAndView("admin/transaction/withdraw-list");
+		return mav;
+	}
+	
+	@RequestMapping(value = "/admin/transaction/transfer", method = RequestMethod.GET)
+	public ModelAndView adminViewTransfer() {
+		ModelAndView mav = new ModelAndView("admin/transaction/transfer-list");
+		return mav;
+	}
+	
+// APPOINTMENT CONTROLLER
+	@RequestMapping(value = "/admin/appointment", method = RequestMethod.GET)
+	public ModelAndView adminViewAppointment(ModelMap modelMap) {
+		modelMap.put("appointment", appointmentService.findAll());
+		ModelAndView mav = new ModelAndView("admin/appointment/appointment-list");
+		return mav;
+	}
+	
+// EXTRAS CONTROLLER
+	@RequestMapping(value = "/admin/interest-rate", method = RequestMethod.GET)
+	public ModelAndView adminViewInterestRate() {
+		ModelAndView mav = new ModelAndView("admin/interest-rate/interest-rate-list");
+		return mav;
+	}
+	
 }

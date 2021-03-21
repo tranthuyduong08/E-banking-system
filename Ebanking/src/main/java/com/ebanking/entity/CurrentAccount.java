@@ -36,6 +36,9 @@ public class CurrentAccount {
 	@Column(name = "open_date")
 	private Date openDate;
 	
+	@Column(name = "pincode")
+	private String pinCode;
+	
 	//FK
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name ="current_user_id")
@@ -100,6 +103,14 @@ public class CurrentAccount {
 		this.openDate = openDate;
 	}
 	
+	public String getPinCode() {
+		return pinCode;
+	}
+
+	public void setPinCode(String pinCode) {
+		this.pinCode = pinCode;
+	}
+
 	public List<Transaction> getTransactions() {
 		return transactions;
 	}

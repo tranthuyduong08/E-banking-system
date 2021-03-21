@@ -1,36 +1,50 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<header>
-	<div>
-		<h1>
-			<a href="<c:url value='/customer'/>"><span>E-Banking</span></a>
-		</h1>
-	</div>
-	<nav>
-		<ul>
-			<li>Account
-				<ul>
-					<li><a href="<c:url value='/customer/current-account'/>">Current Account</a></li>
-					<li><a href="<c:url value='/customer/saving-account'/>">Saving Account</a></li>
-					<li><a href="<c:url value='/customer/loan-account'/>">Loan Account</a></li>
-				</ul>
-			</li>
-			<li><a href="<c:url value='/customer/transaction'/>">Transaction</a>
-				<ul>
-					<li><a href="<c:url value='/customer/transaction/deposit'/>">Deposit</a></li>
-					<li><a href="<c:url value='/customer/transaction/withdraw'/>">Withdraw</a></li>
-					<li><a href="<c:url value='/customer/transaction/transfer'/>">Transfer</a>
-						<ul>
-							<li><a href="<c:url value='/customer/transaction/transfer/same-bank'/>">Same bank</a></li>
-							<li><a href="<c:url value='/customer/transaction/transfer/other-bank'/>">Other bank</a></li>
-						</ul>
-					</li>
-				</ul>
-			</li>
-			
-			<li><a href="<c:url value='/customer/profile'/>">Profile</a></li>
-			<li><a href="<c:url value='/customer/appointment'/>">Appointment</a></li>
-			<li><a href="<c:url value='/logout'/>">Logout</a></li>
-		</ul>
-	</nav>
-</header>
+	pageEncoding="UTF-8"%>
+<!-- Right Panel -->
+<div id="right-panel" class="right-panel">
+	<!-- Header-->
+	<header id="header" class="header">
+		<div class="top-left">
+			<div class="navbar-header">
+				<a class="navbar-brand" href="<c:url value='/customer'/>"><img
+					src="<c:url value='/template/admin/images/logo.png'/>" alt="Logo"></a>
+				<a class="navbar-brand hidden" href="./"><img
+					src="<c:url value='/template/admin/images/logo2.png'/>" alt="Logo"></a>
+				<a id="menuToggle" class="menutoggle"><i class="fa fa-bars"></i></a>
+			</div>
+		</div>
+		<div class="top-right">
+			<div class="header-menu">
+				<div class="header-left">
+					<button class="search-trigger">
+						<i class="fa fa-search"></i>
+					</button>
+					<div class="form-inline">
+						<form class="search-form">
+							<input class="form-control mr-sm-2" type="text"
+								placeholder="Search ..." aria-label="Search">
+							<button class="search-close" type="submit">
+								<i class="fa fa-close"></i>
+							</button>
+						</form>
+					</div>
+				</div>
+
+				<div class="user-area dropdown float-right">
+					<a href="#" class="dropdown-toggle active" data-toggle="dropdown"
+						aria-haspopup="true" aria-expanded="false"> <img
+						class="user-avatar rounded-circle"
+						src="<c:url value='/template/admin/images/admin.jpg'/>"
+						alt="User Avatar">
+					</a>
+
+					<div class="user-menu dropdown-menu">
+						<a class="nav-link" href="<c:url value='/customer/profile'/>"><i class="fa fa- user"></i>My Profile</a> 						
+						<a class="nav-link" href="<c:url value='/logout'/>"><i class="fa fa-power -off"></i>Logout</a>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</header>
+	<!-- /#header -->

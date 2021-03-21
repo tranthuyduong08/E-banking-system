@@ -37,6 +37,12 @@ public class CustomUserDetailsService implements UserDetailsService {
 		myUser.setFirstName(user.getFirstName());
 		myUser.setLastName(user.getLastName());
 		myUser.setGender(user.getGender());
+		myUser.setDob(user.getDob());
+		myUser.setEmail(user.getEmail());
+		myUser.setPhone(user.getPhone());
+		myUser.setNationality(user.getNationality());
+		myUser.setCity(user.getCity());
+		myUser.setAddress(user.getAddress());
 		return myUser;
 	}
 

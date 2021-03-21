@@ -15,6 +15,7 @@
 		<jstl.version>1.2</jstl.version>
 		<hibernate.version>4.3.8.Final</hibernate.version>
 		<hibernate.validator>5.4.1.Final</hibernate.validator>
+		<bean.validator.api>1.1.0.Final</bean.validator.api>
 		<spring.data>1.11.5.RELEASE</spring.data>
 		<mysql.version>8.0.13</mysql.version>
 		<maven.compiler.source>1.8</maven.compiler.source>
@@ -135,6 +136,13 @@
 			<version>${hibernate.validator}</version>
 		</dependency>
 		
+		<!-- Bean Validation API -->
+		<dependency>
+			<groupId>javax.validation</groupId>
+			<artifactId>validation-api</artifactId>
+			<version>${bean.validator.api}</version>
+		</dependency>
+
 		<!-- Spring data -->
 		<dependency>
 			<groupId>org.springframework.data</groupId>

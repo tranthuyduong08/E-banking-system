@@ -32,4 +32,9 @@ public class LoginController {
 	public ModelAndView accessDenied() {
 		return new ModelAndView("redirect:/login?accessDenied");
 	}
+	
+	@RequestMapping(value = "/register", method = RequestMethod.GET)
+	public ModelAndView registerPage() {
+		return new ModelAndView("login/register");
+	}
 }

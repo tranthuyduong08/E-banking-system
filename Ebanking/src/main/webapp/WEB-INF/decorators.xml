@@ -6,6 +6,9 @@
 	<decorator name="login" page = "loginpage.jsp">
 		<pattern>/login</pattern>
 	</decorator>
+	<decorator name="register" page = "loginpage.jsp">
+		<pattern>/register</pattern>
+	</decorator>
 	<decorator name="admin" page = "adminpage.jsp">
 		<pattern>/admin*</pattern>
 	</decorator>

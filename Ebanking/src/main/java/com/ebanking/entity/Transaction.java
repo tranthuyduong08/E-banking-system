@@ -26,7 +26,7 @@ public class Transaction {
 	private String receiver;
 
 	@Column(name = "amount")
-	private String amount;
+	private Integer amount;
 
 	@Column(name = "date")
 	private Date date;
@@ -68,11 +68,11 @@ public class Transaction {
 		this.receiver = receiver;
 	}
 
-	public String getAmount() {
+	public Integer getAmount() {
 		return amount;
 	}
 
-	public void setAmount(String amount) {
+	public void setAmount(Integer amount) {
 		this.amount = amount;
 	}
 

@@ -1,53 +1,156 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>E-Banking</title>
-</head>
-<body>
-<h1>Edit Profile</h1>
-<form action="<c:url value='/customer/profile/edit'/>" method="post">
-  <div>    
-    <label for="firstname"><b>First Name</b></label><br>
-    <input type="text" placeholder="Enter First Name" name="firstname" required><br>
-    
-    <label for="lastname"><b>Last Name</b></label><br>
-    <input type="text" placeholder="Enter Last Name" name="lastname" required><br>
-    
-    <label for="gender"><b>Gender</b></label><br>
-    <input type="text" placeholder="Enter Gender" name="gender" required><br>
-    
-    <label for="dob"><b>DOB</b></label><br>
-    <input type="date" placeholder="Enter DOB" name="dob" required><br>
-    
-    <label for="email"><b>Email</b></label><br>
-    <input type="email" placeholder="Enter Email" name="email" required><br>
-    
-    <label for="phone"><b>Phone</b></label><br>
-    <input type="text" placeholder="Enter Phone" name="phone" required><br>
-    
-    <label for="nationality"><b>Nationality</b></label><br>
-    <input type="text" placeholder="Enter Nationality" name="nationality" required><br>
-    
-    <label for="city"><b>City</b></label><br>
-    <input type="text" placeholder="Enter City" name="city" required><br>
-    
-    <label for="address"><b>Address</b></label><br>
-    <input type="text" placeholder="Enter Address" name="address" required><br>
-    
-    <label for="salary"><b>Salary</b></label><br>
-    <input type="text" placeholder="Enter Salary" name="salary" required><br>
-    
-    <label for="username"><b>Username</b></label><br>
-    <input type="text" placeholder="Enter Username" name="username" required><br>
-
-    <label for="password"><b>Password</b></label><br>
-    <input type="password" placeholder="Enter Password" name="password" required><br>
-
-    <button type="submit">Update</button><br> 
-  </div>
-</form>
-</body>
-</html>
+	pageEncoding="UTF-8"%>
+<%@ include file="/common/taglib.jsp" %>
+<div class="breadcrumbs">
+	<div class="breadcrumbs-inner">
+		<div class="row m-0">
+			<div class="col-sm-4">
+				<div class="page-header float-left">
+					<div class="page-title">
+						<h1>PROFILE</h1>
+					</div>
+				</div>
+			</div>
+			<div class="col-sm-8">
+				<div class="page-header float-right">
+					<div class="page-title">
+						<ol class="breadcrumb text-right">
+							<li><a href="#">Dashboard</a></li>
+							<li><a href="#">Extra</a></li>
+							<li class="active">Profile</li>
+						</ol>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="content">
+	<div class="animated fadeIn">
+		<div class="row justify-content-center">
+			<div class="col-lg-6">
+				<div class="card">
+					<div class="card-header">
+						<strong>Edit</strong> Profile
+					</div>
+					<div class="card-body card-block">
+						<c:url var="profileEdit" value='/customer/profile/edit'/>
+						<form:form action="${profileEdit}" method="post" modelAttribute="user" class="form-horizontal">
+							<div class="row form-group">
+								<div class="col col-md-3">
+									<label class=" form-control-label">Username</label>
+								</div>
+								<div class="col-12 col-md-9">
+									<form:input type="text" placeholder="Enter Username" path="username" value="${user.username}" readonly="true"
+									class="form-control"/>
+								</div>
+							</div>
+							<div class="row form-group">
+								<div class="col col-md-3">
+									<label for="text-input" class=" form-control-label">First Name</label>
+								</div>
+								<div class="col-12 col-md-9">
+									<form:input type="text" id="text-input" placeholder="Enter First Name" path="firstName" value="${user.firstName}"
+									readonly="true" class="form-control"/>
+									<small class="form-text text-muted">This is a help text</small>
+								</div>
+							</div>
+							<div class="row form-group">
+								<div class="col col-md-3">
+									<label for="text-input" class=" form-control-label">Last Name</label>
+								</div>
+								<div class="col-12 col-md-9">
+									<form:input type="text" id="text-input" placeholder="Enter Last Name" path="lastName" value="${user.lastName}"
+									readonly="true" class="form-control"/>
+								</div>
+							</div>
+							<div class="row form-group">
+								<div class="col col-md-3">
+									<label for="text-input" class=" form-control-label">Gender</label>
+								</div>
+								<div class="col-12 col-md-9">
+									<form:input type="text" id="text-input" placeholder="Enter Gender" path="gender" value="${user.gender}"
+									readonly="true" class="form-control"/>
+								</div>
+							</div>
+							<div class="row form-group">
+								<div class="col col-md-3">
+									<label for="text-input" class=" form-control-label">Date of Birth</label>
+								</div>
+								<div class="col-12 col-md-9">
+									<form:input type="date" id="text-input" placeholder="Enter DOB" path="dob" value="${user.dob}"
+									readonly="true" class="form-control"/>
+								</div>
+							</div>
+							<div class="row form-group">
+								<div class="col col-md-3">
+									<label for="email-input" class=" form-control-label">Email </label>
+								</div>
+								<div class="col-12 col-md-9">
+									<form:input type="email" id="email-input" placeholder="Enter Email" path="email" value="${user.email}"
+									class="form-control"/>
+								</div>
+							</div>
+							<div class="row form-group">
+								<div class="col col-md-3">
+									<label for="email-input" class=" form-control-label">Phone </label>
+								</div>
+								<div class="col-12 col-md-9">
+									<form:input type="text" id="text-input" placeholder="Enter Phone" path="phone" value="${user.phone}"
+									class="form-control"/>
+								</div>
+							</div>
+							<div class="row form-group">
+								<div class="col col-md-3">
+									<label for="email-input" class=" form-control-label">Nationality </label>
+								</div>
+								<div class="col-12 col-md-9">
+									<form:input type="text" id="text-input" placeholder="Enter Nationality" path="nationality" value="${user.nationality}"
+									readonly="true" class="form-control"/>
+								</div>
+							</div>
+							<div class="row form-group">
+								<div class="col col-md-3">
+									<label for="email-input" class=" form-control-label">City </label>
+								</div>
+								<div class="col-12 col-md-9">
+									<form:input type="text" id="text-input" placeholder="Enter City" path="city" value="${user.city}"
+									readonly="true" class="form-control"/>
+								</div>
+							</div>
+							<div class="row form-group">
+								<div class="col col-md-3">
+									<label for="email-input" class=" form-control-label">Address </label>
+								</div>
+								<div class="col-12 col-md-9">
+									<form:textarea id="w3review" path="address" rows="4" cols="30" value="${user.address}"
+									placeholder="Enter Address" readonly="true" class="form-control"/>
+								</div>
+							</div>
+							<div class="row form-group">
+								<div class="col col-md-3">
+									<label for="email-input" class=" form-control-label">Salary </label>
+								</div>
+								<div class="col-12 col-md-9">
+									<form:input type="text" id="text-input" placeholder="Enter Salary" path="salary" value="${user.salary}"
+									readonly="true" class="form-control"/>
+								</div>
+							</div>							
+							<hr>
+							<div class="">							
+								<button type="submit" class="btn btn-primary btn-sm">
+									<i class="fa fa-dot-circle-o"></i> Submit
+								</button>
+								<button type="reset" class="btn btn-danger btn-sm">
+									<i class="fa fa-ban"></i> Reset
+								</button>
+							</div>
+						</form:form>
+					</div>					
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- .animated -->
+</div>
+<!-- .content -->

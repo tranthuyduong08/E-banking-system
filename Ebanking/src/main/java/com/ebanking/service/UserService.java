@@ -18,4 +18,6 @@ public interface UserService {
 	public void bindRole(User user);
 	
 	public void deleteRole(User user);
+	
+	public int countAccount();
 }

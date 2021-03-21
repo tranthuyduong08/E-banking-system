@@ -19,6 +19,9 @@ public class SavingAccount {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
+	@Column(name = "accNo")
+	private String accNo;
+	
 	@Column(name = "initialAmount")
 	private Integer initialAmount;
 	
@@ -33,6 +36,9 @@ public class SavingAccount {
 	
 	@Column(name = "description")
 	private String description;
+	
+	@Column(name = "pincode")
+	private String pinCode;
 
 	//FK
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -47,6 +53,16 @@ public class SavingAccount {
 	public Long getId() {
 		return id;
 	}
+
+	public String getAccNo() {
+		return accNo;
+	}
+
+
+	public void setAccNo(String accNo) {
+		this.accNo = accNo;
+	}
+
 
 	public User getUser() {
 		return user;
@@ -103,4 +119,14 @@ public class SavingAccount {
 	public void setDescription(String description) {
 		this.description = description;
 	}
+
+	public String getPinCode() {
+		return pinCode;
+	}
+
+	public void setPinCode(String pinCode) {
+		this.pinCode = pinCode;
+	}
+	
+	
 }

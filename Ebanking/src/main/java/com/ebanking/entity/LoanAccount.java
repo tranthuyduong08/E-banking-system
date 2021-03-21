@@ -1,5 +1,7 @@
 package com.ebanking.entity;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -17,23 +19,29 @@ public class LoanAccount {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
+	@Column(name = "accNo")
+	private String accNo;
+	
 	@Column(name = "tenor")
 	private String tenor;
 	
 	@Column(name = "total_amount")
-	private String totalAmount;
+	private Integer totalAmount;
 	
 	@Column(name = "remain_amount")
-	private String remainAmount;
+	private Integer remainAmount;
 	
 	@Column(name = "open_date")
-	private Integer openDate;
+	private Date openDate;
 	
 	@Column(name = "close_date")
-	private Integer closeDate;
+	private Date closeDate;
 	
 	@Column(name = "description")
 	private String description;
+	
+	@Column(name = "pincode")
+	private String pinCode;
 
 	//FK
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -46,6 +54,14 @@ public class LoanAccount {
 
 	public Long getId() {
 		return id;
+	}
+
+	public String getAccNo() {
+		return accNo;
+	}
+
+	public void setAccNo(String accNo) {
+		this.accNo = accNo;
 	}
 
 	public User getUser() {
@@ -72,35 +88,35 @@ public class LoanAccount {
 		this.tenor = tenor;
 	}
 
-	public String getTotalAmount() {
+	public Integer getTotalAmount() {
 		return totalAmount;
 	}
 
-	public void setTotalAmount(String totalAmount) {
+	public void setTotalAmount(Integer totalAmount) {
 		this.totalAmount = totalAmount;
 	}
 
-	public String getRemainAmount() {
+	public Integer getRemainAmount() {
 		return remainAmount;
 	}
 
-	public void setRemainAmount(String remainAmount) {
+	public void setRemainAmount(Integer remainAmount) {
 		this.remainAmount = remainAmount;
 	}
 
-	public Integer getOpenDate() {
+	public Date getOpenDate() {
 		return openDate;
 	}
 
-	public void setOpenDate(Integer openDate) {
+	public void setOpenDate(Date openDate) {
 		this.openDate = openDate;
 	}
 
-	public Integer getCloseDate() {
+	public Date getCloseDate() {
 		return closeDate;
 	}
 
-	public void setCloseDate(Integer closeDate) {
+	public void setCloseDate(Date closeDate) {
 		this.closeDate = closeDate;
 	}
 
@@ -110,6 +126,14 @@ public class LoanAccount {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	public String getPinCode() {
+		return pinCode;
+	}
+
+	public void setPinCode(String pinCode) {
+		this.pinCode = pinCode;
 	}
 	
 	
