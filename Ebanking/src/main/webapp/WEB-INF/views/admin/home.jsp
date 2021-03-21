@@ -32,7 +32,7 @@
 							<div class="stat-content">
 								<div class="text-left dib">
 									<div class="stat-text">
-										<span class="count">2986</span>
+										<span class="count">2</span>
 									</div>
 									<div class="stat-heading">
 										<a href="<c:url value='/admin/customer'/>">Customer</a>
@@ -53,9 +53,9 @@
 							<div class="stat-content">
 								<div class="text-left dib">
 									<div class="stat-text">
-										$<span class="count">23569</span>
+										<span class="count">6</span> 
 									</div>
-									<div class="stat-heading">Total Money</div>
+									<div class="stat-heading">Account</div>
 								</div>
 							</div>
 						</div>
@@ -72,7 +72,7 @@
 							<div class="stat-content">
 								<div class="text-left dib">
 									<div class="stat-text">
-										<span class="count">23569</span>
+										<span class="count">4</span>
 									</div>
 									<div class="stat-heading">Transaction</div>
 								</div>
@@ -91,7 +91,7 @@
 							<div class="stat-content">
 								<div class="text-left dib">
 									<div class="stat-text">
-										<span class="count">23569</span>
+										<span class="count">2</span>
 									</div>
 									<div class="stat-heading">Appointment</div>
 								</div>
