@@ -42,8 +42,8 @@
 									<th>Customer</th>
 									<th>Appointment Name</th>	
 									<th>Date</th>
-									<th>Description</th>
 									<th>Status</th>
+									<th></th>
 									<th></th>
 								</tr>
 							</thead>
@@ -54,14 +54,23 @@
 										<td>${appointment.user.firstName} ${appointment.user.lastName}</td>	
 										<td>${appointment.name}</td>
 										<td>${appointment.date}</td>
-										<td>${appointment.description}</td>
 										<c:if test = "${appointment.status == 0}">
 											<td><a style="color: grey;"><i class="fa fa-spinner"></i> Pending</a></td>
 										</c:if>
 										<c:if test = "${appointment.status == 1}">
 											<td><a style="color: green;"><i class="fa fa-check"></i> Accepted</a></td>
 										</c:if>
-										<td><a href="<c:url value='/admin/appointment'/>"><i class="fa fa-list"></i></a></td>																	
+										<c:if test = "${appointment.status == 0}">
+											<td><a style="color: grey;" href="#mediumModal" class="deleteBTN" data-toggle="modal" data-target="#mediumModal">
+													<i class="fa fa-square-o"></i>
+												</a>
+												<input type="hidden" id="id" value="${appointment.id}" /><input type="hidden" id="id" value="${appointment.id}" />
+											</td>
+										</c:if>
+										<c:if test = "${appointment.status == 1}">
+											<td><a style="color: green;"><i class="fa fa-check-square"></i></a></td>
+										</c:if> 
+										<td><a href="<c:url value='/admin/appointment/detail/${appointment.id}'/>"><i class="fa fa-list"></i></a></td>																	
 									</tr>
 								</c:forEach>
 							</tbody>
@@ -70,7 +79,39 @@
 				</div>
 			</div>
 		</div>
+		
+		<div class="modal fade" id="mediumModal" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+	            <form method="post" action="<c:url value='/admin/appointment/verify'/>">
+	                <div class="modal-content">
+	                    <div class="modal-header">
+	                        <h5 class="modal-title" id="mediumModalLabel">Accept Appointment Record</h5>
+	                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	                            <span aria-hidden="true">&times;</span>
+	                        </button>
+	                    </div>
+	                    <div class="modal-body">
+	                        <p>This appointment will be verified as valid appointment. Do you want to continue?</p>
+	                    </div>
+	                    <div class="modal-footer">
+	                        <input type="button" class="btn btn-secondary" data-dismiss="modal" value="Cancel">
+	                        <input type="submit" class="btn btn-primary" value="Accept" />
+	                        <input type="hidden" name="id" id="id" />
+	                    </div>
+	                </div>
+	            </form>
+            </div>
+        </div> 
 	</div>
 	<!-- .animated -->
 </div>
 <!-- .content -->
+
+<script type="text/javascript">
+	jQuery(document).ready(function($) {
+		jQuery('table .deleteBTN').on('click', function($){
+			var id = jQuery(this).parent().find('#id').val();
+			jQuery('#mediumModal #id').val(id);	 
+		});
+	});
+</script>

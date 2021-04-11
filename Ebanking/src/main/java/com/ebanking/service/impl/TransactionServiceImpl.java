@@ -127,4 +127,9 @@ public class TransactionServiceImpl implements TransactionService{
 		}
 		return transactions;
 	}
+
+	@Override
+	public void acceptDepositRecord(Transaction transaction) {
+		transaction.setStatus(1);
+	}
 }

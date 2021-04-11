@@ -17,4 +17,6 @@ public interface LoanAccountService {
 	public void delete(long id);
 	
 	public void createNewLoanAccount(LoanAccount loanAccount, User user, HttpServletRequest request);
+	
+	public void acceptLoanAccount(LoanAccount loanAccount);
 }

@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import com.ebanking.entity.InterestRate;
 import com.ebanking.entity.SavingAccount;
 import com.ebanking.entity.User;
+import com.ebanking.repository.InterestRateRepository;
 import com.ebanking.repository.SavingAccountRepository;
 import com.ebanking.service.SavingAccountService;
 
@@ -21,6 +22,9 @@ public class SavingAccountServiceImpl implements SavingAccountService{
 
 	@Autowired
 	private SavingAccountRepository savingAccountRepository;
+	
+	@Autowired
+	private InterestRateRepository interestRateRepository;
 	
 	@Autowired
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
@@ -52,7 +56,7 @@ public class SavingAccountServiceImpl implements SavingAccountService{
 
 	@Override
 	public void createNewSavingAccount(SavingAccount savingAccount, User user, HttpServletRequest request) {
-		InterestRate interestRate = new InterestRate();
+		InterestRate interestRate = interestRateRepository.findOne((long)3);
 		Calendar calendar = Calendar.getInstance();
 		calendar.setTime(new Date());
 		calendar.add(Calendar.MONTH, Integer.parseInt(savingAccount.getTenor()));
@@ -61,8 +65,8 @@ public class SavingAccountServiceImpl implements SavingAccountService{
 		savingAccount.setTenor(request.getParameter("tenor"));
 		savingAccount.setUser(user);
 		savingAccount.setOpenDate(new Date());
-		System.out.println("Open Date: " + new Date());
 		savingAccount.setCloseDate(calendar.getTime());
+		savingAccount.setInterestRate(interestRate);
 		savingAccount.setDescription(request.getParameter("description"));
 		savingAccount.setInitialAmount(Integer.parseInt(request.getParameter("initialAmount")));
 		savingAccount.setPinCode(request.getParameter("pinCode"));

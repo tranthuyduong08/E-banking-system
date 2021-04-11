@@ -22,81 +22,75 @@
 	<div class="animated fadeIn">
 		<!-- Widgets  -->
 		<div class="row">
-			<div class="col-lg-3 col-md-6">
-				<div class="card">
+			<div class="col-sm-6 col-lg-3">
+				<div class="card text-white bg-flat-color-6">
 					<div class="card-body">
-						<div class="stat-widget-five">
-							<div class="stat-icon dib flat-color-4">
-								<i class="pe-7s-users"></i>
-							</div>
-							<div class="stat-content">
-								<div class="text-left dib">
-									<div class="stat-text">
-										<span class="count">${allUsers}</span>
-									</div>
-									<div class="stat-heading">
-										<div class="stat-heading"><a href="<c:url value='/admin/customer'/>">Users</a></div>
-									</div>
-								</div>
-							</div>
+						<div class="card-left pt-1 float-left">
+							<h3 class="mb-0 fw-r">
+								<span class="count">${allUsers}</span>
+							</h3>
+							<p class="text-light mt-1 m-0"><a style="color: white;" href="<c:url value='/admin/customer'/>">Users</a></p>
 						</div>
+						<!-- /.card-left -->
+
+						<div class="card-right float-right text-right">
+							<i class="icon fade-5 icon-lg pe-7s-users"></i>
+						</div>
+						<!-- /.card-right -->
 					</div>
 				</div>
 			</div>
-			<div class="col-lg-3 col-md-6">
-				<div class="card">
+			<div class="col-sm-6 col-lg-3">
+				<div class="card text-white bg-flat-color-1">
 					<div class="card-body">
-						<div class="stat-widget-five">
-							<div class="stat-icon dib flat-color-1">
-								<i class="pe-7s-cash"></i>
-							</div>
-							<div class="stat-content">
-								<div class="text-left dib">
-									<div class="stat-text">
-										<span class="count">${allAccounts}</span> 
-									</div>
-									<div class="stat-heading">Account</div>
-								</div>
-							</div>
+						<div class="card-left pt-1 float-left">
+							<h3 class="mb-0 fw-r">
+								<span class="count">${allAccounts}</span>
+							</h3>
+							<p class="text-light mt-1 m-0">Account</p>
 						</div>
+						<!-- /.card-left -->
+
+						<div class="card-right float-right text-right">
+							<i class="icon fade-5 icon-lg pe-7s-cash"></i>
+						</div>
+						<!-- /.card-right -->
 					</div>
 				</div>
 			</div>
-			<div class="col-lg-3 col-md-6">
-				<div class="card">
+			<div class="col-sm-6 col-lg-3">
+				<div class="card text-white bg-flat-color-2">
 					<div class="card-body">
-						<div class="stat-widget-five">
-							<div class="stat-icon dib flat-color-2">
-								<i class="pe-7s-refresh-2"></i>
-							</div>
-							<div class="stat-content">
-								<div class="text-left dib">
-									<div class="stat-text">
-										<span class="count">${allTransactions}</span>
-									</div>
-									<div class="stat-heading">Transaction</div>
-								</div>
-							</div>
+						<div class="card-left pt-1 float-left">
+							<h3 class="mb-0 fw-r">
+								<span class="count">${allTransactions}</span>
+							</h3>
+							<p class="text-light mt-1 m-0">Transaction</p>
 						</div>
+						<!-- /.card-left -->
+	
+						<div class="card-right float-right text-right">
+							<i class="icon fade-5 icon-lg pe-7s-refresh-2"></i>
+						</div>						
+						<!-- /.card-right -->
 					</div>
 				</div>
 			</div>
-			<div class="col-lg-3 col-md-6">
-				<div class="card">
+			<div class="col-sm-6 col-lg-3">
+				<div class="card text-white bg-flat-color-3">
 					<div class="card-body">
-						<div class="stat-widget-five">
-							<div class="stat-icon dib flat-color-3">
-								<i class="pe-7s-note2"></i>
-							</div>
-							<div class="stat-content">
-								<div class="text-left dib">
-									<div class="stat-text">
-										<span class="count">${allAppointments}</span>
-									</div>
-									<div class="stat-heading"><a href="<c:url value='/admin/appointment'/>">Appointment</a></div>
-								</div>
-							</div>
+						<div class="card-left pt-1 float-left">
+							<h3 class="mb-0 fw-r">
+								<span class="count">${allAppointments}</span>
+							</h3>
+							<p class="text-light mt-1 m-0"><a style="color: white;" href="<c:url value='/admin/appointment'/>">Appointment</a></p>
 						</div>
+						<!-- /.card-left -->
+
+						<div class="card-right float-right text-right">
+							<i class="icon fade-5 icon-lg pe-7s-note2"></i>
+						</div>
+						<!-- /.card-right -->
 					</div>
 				</div>
 			</div>

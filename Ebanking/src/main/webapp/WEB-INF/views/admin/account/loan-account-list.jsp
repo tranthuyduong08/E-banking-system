@@ -28,7 +28,6 @@
 <div class="content">
 	<div class="animated fadeIn">
 		<div class="row">
-
 			<div class="col-md-12">
 				<div class="card">
 					<div class="card-header">
@@ -47,7 +46,7 @@
 									<th>Interest Rate(%)</th>
 									<th>Status</th>
 									<th></th>
-									
+									<th></th>									
 								</tr>
 							</thead>
 							<tbody>
@@ -60,15 +59,25 @@
 										<td>${loanAccount.totalAmount}</td>	
 										<td>${loanAccount.interestRate.interestRate}</td>										
 										<c:if test = "${loanAccount.status == 0}">
-											<td><a style="color: gray;">Pending</a></td>
+											<td><a style="color: gray;"><i class="fa fa-spinner"></i> Pending</a></td>
 										</c:if>
 										<c:if test = "${loanAccount.status == 1}">
-											<td><a style="color: green;">Active</a></td>
+											<td><a style="color: green;"><i class="fa fa-check"></i> Enable</a></td>
 										</c:if> 
 										<c:if test = "${loanAccount.status == 2}">
-											<td><a style="color: blue;">Finished</a></td>
+											<td><a style="color: blue;"><i class="fa fa-check-square-o"></i> Finished</a></td>
 										</c:if> 
-										<td><a href="<c:url value='/admin/loan-account'/>"><i class="fa fa-edit"></i></a></td>
+										<c:if test = "${loanAccount.status == 0}">
+											<td><a style="color: grey;" href="#mediumModal" class="deleteBTN" data-toggle="modal" data-target="#mediumModal">
+													<i class="fa fa-square-o"></i>
+												</a>
+												<input type="hidden" id="id" value="${loanAccount.id}" /><input type="hidden" id="id" value="${loanAccount.id}" />
+											</td>
+										</c:if>
+										<c:if test = "${loanAccount.status == 1 || loanAccount.status == 2}">
+											<td><a style="color: green;"><i class="fa fa-check-square"></i></a></td>
+										</c:if> 										
+										<td><a href="<c:url value='/admin/loan-account/detail/${loanAccount.id}'/>"><i class="fa fa-list"></i></a></td>
 									</tr>
 								</c:forEach>								
 							</tbody>
@@ -76,10 +85,40 @@
 					</div>
 				</div>
 			</div>
-
-
 		</div>
+		
+		<div class="modal fade" id="mediumModal" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+	            <form method="post" action="<c:url value='/admin/loan-account/verify'/>">
+	                <div class="modal-content">
+	                    <div class="modal-header">
+	                        <h5 class="modal-title" id="mediumModalLabel">Accept Appointment Record</h5>
+	                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	                            <span aria-hidden="true">&times;</span>
+	                        </button>
+	                    </div>
+	                    <div class="modal-body">
+	                        <p>This loan account will be verified as an valid account. Do you want to continue?</p>
+	                    </div>
+	                    <div class="modal-footer">
+	                        <input type="button" class="btn btn-secondary" data-dismiss="modal" value="Cancel">
+	                        <input type="submit" class="btn btn-success" value="Accept" />
+	                        <input type="hidden" name="id" id="id" />
+	                    </div>
+	                </div>
+	            </form>
+            </div>
+        </div> 
 	</div>
 	<!-- .animated -->
 </div>
 <!-- .content -->
+
+<script type="text/javascript">
+	jQuery(document).ready(function($) {
+		jQuery('table .deleteBTN').on('click', function($){
+			var id = jQuery(this).parent().find('#id').val();
+			jQuery('#mediumModal #id').val(id);	 
+		});
+	});
+</script>

@@ -20,4 +20,6 @@ public interface AppointmentService {
 	public void delete(long id);
 	
 	public void createNewAppointment(Appointment appointment, User user, HttpServletRequest request) throws ParseException;
+	
+	public void acceptAppointment(Appointment appointment);
 }

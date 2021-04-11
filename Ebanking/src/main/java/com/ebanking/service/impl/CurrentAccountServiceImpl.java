@@ -85,4 +85,14 @@ public class CurrentAccountServiceImpl implements CurrentAccountService {
 		currentAccount.setPinCode(request.getParameter("pinCode"));
 	}
 
+	@Override
+	public void activateCurrentAccount(CurrentAccount currentAccount) {
+		currentAccount.setStatus(1);
+	}
+
+	@Override
+	public void deactivateCurrentAccount(CurrentAccount currentAccount) {
+		currentAccount.setStatus(0);
+	}
+
 }

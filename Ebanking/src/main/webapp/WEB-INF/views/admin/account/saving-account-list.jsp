@@ -59,9 +59,9 @@
 											<td><a style="color: red;">Cancel</a></td>
 										</c:if>
 										<c:if test = "${savingAccount.status == 1}">
-											<td><a style="color: green;">Active</a></td>
+											<td><a style="color: green;">Enable</a></td>
 										</c:if> 
-										<td><a href="<c:url value='/admin/saving-account'/>"><i class="fa fa-edit"></i></a></td>
+										<td><a href="<c:url value='/admin/saving-account/detail/${savingAccount.id}'/>"><i class="fa fa-list"></i></a></td>
 									</tr>
 								</c:forEach>								
 							</tbody>

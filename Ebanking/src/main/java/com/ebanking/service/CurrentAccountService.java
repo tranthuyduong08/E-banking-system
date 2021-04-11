@@ -23,4 +23,8 @@ public interface CurrentAccountService {
 	public void withdraw(int amount, HttpServletRequest request);
 	
 	public void changePinCode(CurrentAccount currentAccount, HttpServletRequest request);
+	
+	public void activateCurrentAccount(CurrentAccount currentAccount);
+	
+	public void deactivateCurrentAccount(CurrentAccount currentAccount);
 }

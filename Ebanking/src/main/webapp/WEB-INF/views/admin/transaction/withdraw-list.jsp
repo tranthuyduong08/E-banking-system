@@ -54,7 +54,7 @@
 										<td>${withdraw.currentAccount.user.firstName} ${withdraw.currentAccount.user.lastName}</td>
 										<td>${withdraw.amount}</td>
 										<td>${withdraw.date}</td>													
-										<td><a href="<c:url value='/admin/transaction/deposit'/>"><i class="fa fa-list"></i></a></td>
+										<td><a href="<c:url value='/admin/transaction/withdraw/detail/${withdraw.id}'/>"><i class="fa fa-list"></i></a></td>
 									</tr>
 								</c:forEach>
 							</tbody>

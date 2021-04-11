@@ -33,4 +33,5 @@ public interface TransactionService {
 	
 	public List<Transaction> getCurrentUserWithdraw(User user);
 	
+	public void acceptDepositRecord(Transaction transaction);
 }

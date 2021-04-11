@@ -69,5 +69,8 @@ public class AppointmentServiceImpl implements AppointmentService {
 		appointment.setStatus(0);
 	}
 
-
+	@Override
+	public void acceptAppointment(Appointment appointment) {
+		appointment.setStatus(1);	
+	}
 }

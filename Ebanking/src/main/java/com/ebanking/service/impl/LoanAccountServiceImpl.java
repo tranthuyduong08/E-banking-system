@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import com.ebanking.entity.InterestRate;
 import com.ebanking.entity.LoanAccount;
 import com.ebanking.entity.User;
+import com.ebanking.repository.InterestRateRepository;
 import com.ebanking.repository.LoanAccountRepository;
 import com.ebanking.service.LoanAccountService;
 
@@ -20,6 +21,9 @@ public class LoanAccountServiceImpl implements LoanAccountService{
 
 	@Autowired
 	private LoanAccountRepository loanAccountRepository;
+	
+	@Autowired
+	private InterestRateRepository interestRateRepository;
 	
 	@Override
 	public List<LoanAccount> findAll() {
@@ -43,7 +47,7 @@ public class LoanAccountServiceImpl implements LoanAccountService{
 
 	@Override
 	public void createNewLoanAccount(LoanAccount loanAccount, User user, HttpServletRequest request) {
-		InterestRate interestRate = new InterestRate();
+		InterestRate interestRate = interestRateRepository.findOne((long)4);
 		Calendar calendar = Calendar.getInstance();
 		calendar.setTime(new Date());
 		calendar.add(Calendar.MONTH, Integer.parseInt(loanAccount.getTenor()));
@@ -56,8 +60,14 @@ public class LoanAccountServiceImpl implements LoanAccountService{
 		loanAccount.setDescription(request.getParameter("description"));
 		loanAccount.setTotalAmount(Integer.parseInt(request.getParameter("totalAmount")));
 		loanAccount.setRemainAmount(loanAccount.getTotalAmount());
+		loanAccount.setInterestRate(interestRate);
 		loanAccount.setPinCode(request.getParameter("pinCode"));
 		loanAccount.setStatus(0);	
+	}
+
+	@Override
+	public void acceptLoanAccount(LoanAccount loanAccount) {
+		loanAccount.setStatus(1);
 	}
 
 }
