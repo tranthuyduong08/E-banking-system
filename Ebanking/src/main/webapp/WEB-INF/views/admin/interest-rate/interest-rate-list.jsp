@@ -42,19 +42,31 @@
 									<th>Type</th>
 									<th>Rate (%)</th>
 									<th></th>
+									<th></th>
 								</tr>
 							</thead>
 							<tbody>
-								<tr>
-									<td>1</td>
-									<td>Primary Account</td>
-									<td>0.3</td>
-									<td><a href="<c:url value='/admin/interest-rate'/>"><i class="fa fa-edit"></i></a></td>
-								</tr>
+								<c:forEach var="interestRate" items="${interestRate}" varStatus="i">
+									<tr>
+										<td>${i.index +1 }</td>
+										<td>${interestRate.type}</td>	
+										<td>${interestRate.interestRate}</td>
+										<td><a href="<c:url value='/admin/interest-rate/edit/${interestRate.id}'/>"><i class="fa fa-edit"></i></a></td>		
+										<td><a href="<c:url value='/admin/interest-rate/delete/${interestRate.id}'/>"><i class="fa fa-trash"></i></a></td>															
+									</tr>
+								</c:forEach>
 							</tbody>
 						</table>
 					</div>
 				</div>
+			</div>
+		</div>
+		
+		<div class="row justify-content-center">
+			<div class="col-lg-4">
+				<a href="<c:url value='/admin/interest-rate/create'/>">
+					<button type="button" class="btn btn-success btn-lg btn-block"><i class="fa fa-plus-circle"></i> Make New Interest Rate</button>
+				</a>
 			</div>
 		</div>
 	</div>

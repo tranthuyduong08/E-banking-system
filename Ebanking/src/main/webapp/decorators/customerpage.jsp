@@ -31,6 +31,8 @@
 
     <link href="<c:url value='https://cdn.jsdelivr.net/npm/weathericons@2.1.0/css/weather-icons.css'/>" rel="stylesheet" />
     <link href="<c:url value='https://cdn.jsdelivr.net/npm/fullcalendar@3.9.0/dist/fullcalendar.min.css'/>" rel="stylesheet" />
+    <script src="<c:url value='https://cdn.jsdelivr.net/npm/jquery@2.2.4/dist/jquery.min.js'/>"></script>
+<%--     <script src="<c:url value='/template/admin/assets/js/jquery.min.js'/>"></script> --%>
     <style>
     #weatherWidget .currentDesc {
         color: #ffffff!important;
@@ -76,7 +78,6 @@
 	<%@ include file="/common/footer.jsp" %>
 	
 	<!-- Scripts -->
-    <script src="<c:url value='https://cdn.jsdelivr.net/npm/jquery@2.2.4/dist/jquery.min.js'/>"></script>
     <script src="<c:url value='https://cdn.jsdelivr.net/npm/popper.js@1.14.4/dist/umd/popper.min.js'/>"></script>
     <script src="<c:url value='https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js'/>"></script>
     <script src="<c:url value='https://cdn.jsdelivr.net/npm/jquery-match-height@0.7.2/dist/jquery.matchHeight.min.js'/>"></script>
@@ -293,7 +294,7 @@
         });
     </script>
 	<script type="text/javascript">
-		$(document).ready(function() {
+		jQuery(document).ready(function($) {
 			$('#bootstrap-data-table-export').DataTable();
 		});
 	</script>

@@ -17,6 +17,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import org.hibernate.validator.constraints.NotBlank;
+
 @Entity
 @Table(name = "current_account")
 public class CurrentAccount {
@@ -36,8 +38,12 @@ public class CurrentAccount {
 	@Column(name = "open_date")
 	private Date openDate;
 	
+	@NotBlank(message="Please fill in the new PINCODE")
 	@Column(name = "pincode")
 	private String pinCode;
+	
+	@Column(name = "status")
+	private Integer status;
 	
 	//FK
 	@OneToOne(cascade = CascadeType.ALL)
@@ -111,11 +117,26 @@ public class CurrentAccount {
 		this.pinCode = pinCode;
 	}
 
+	public Integer getStatus() {
+		return status;
+	}
+
+	public void setStatus(Integer status) {
+		this.status = status;
+	}
+
 	public List<Transaction> getTransactions() {
 		return transactions;
 	}
 
 	public void setTransactions(List<Transaction> transactions) {
 		this.transactions = transactions;
+	}
+
+	@Override
+	public String toString() {
+		return "CurrentAccount [id=" + id + ", accNo=" + accNo + ", cardNo=" + cardNo + ", balance=" + balance
+				+ ", openDate=" + openDate + ", pinCode=" + pinCode + ", status=" + status + ", user=" + user
+				+ ", interestRate=" + interestRate + ", transactions=" + transactions + "]";
 	}
 }

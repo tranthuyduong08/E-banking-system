@@ -1,9 +1,13 @@
 package com.ebanking.service;
 
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+
 import com.ebanking.entity.User;
 
 public interface UserService {
-	public Iterable<User> findAll();
+	public List<User> findAll();
 	
 	public User find(long id);
 	
@@ -20,4 +24,10 @@ public interface UserService {
 	public void deleteRole(User user);
 	
 	public int countAccount();
+	
+	public User getCurrentUser();
+	
+	public void editProfile(User user, HttpServletRequest request);
+	
+	public void editFullProfile(User user, HttpServletRequest request);
 }

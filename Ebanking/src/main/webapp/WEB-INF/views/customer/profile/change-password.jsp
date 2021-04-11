@@ -52,7 +52,7 @@
 								<div class="col-12 col-md-8">
 									<form:password id="password-input" placeholder="Enter Password" path="password" 
 									class="form-control"/>
-									<small class="form-text text-muted"><form:errors path="password" cssClass="error"/></small>
+									<small class="form-text text-muted"><form:errors path="password" style="color:red;" cssClass="error"/></small>
 								</div>
 							</div> 
 							<div class="row form-group">
@@ -60,9 +60,9 @@
 									<label for="password-input" class=" form-control-label">Confirm Password</label>
 								</div>
 								<div class="col-12 col-md-8">
-									<form:password id="password-input" placeholder="Enter Password" path="password" 
+									<form:password id="password-input" placeholder="Enter Password Again" path="password" 
 									class="form-control"/>
-									<small class="help-block form-text">Please enter a complex password</small>
+									<small class="form-text text-muted"><form:errors path="password" style="color:red;" cssClass="error"/></small>
 								</div>
 							</div> 
 							<hr>

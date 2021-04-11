@@ -1,9 +1,17 @@
 package com.ebanking.service.impl;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.ebanking.dto.MyUser;
 import com.ebanking.entity.Role;
 import com.ebanking.entity.User;
 import com.ebanking.service.UserService;
@@ -35,7 +43,7 @@ public class UserServiceImpl implements UserService {
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
 	
 	@Override
-	public Iterable<User> findAll() {
+	public List<User> findAll() {
 		return userRepository.findAll();
 	}
 	
@@ -96,6 +104,37 @@ public class UserServiceImpl implements UserService {
 		long count = 0;
 		count = currentAccountRepository.count() + savingAccountRepository.count() + loanAccountRepository.count();
 		return (int) count;
+	}
+
+	@Override
+	public User getCurrentUser() {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		MyUser myUser = (MyUser)authentication.getPrincipal();
+		long userId = myUser.getUserId();
+		User user = find(userId);
+		return user;
+	}
+
+	@Override
+	public void editProfile(User user, HttpServletRequest request) {
+		user.setDob(user.getDob());
+		user.setEmail(request.getParameter("email"));
+		user.setPhone(request.getParameter("phone"));	
+	}
+	
+	@Override
+	public void editFullProfile(User user, HttpServletRequest request) {
+		user.setUsername(request.getParameter("username"));
+		user.setFirstName(request.getParameter("firstName"));
+		user.setLastName(request.getParameter("lastName"));
+		user.setGender(request.getParameter("gender"));
+		user.setDob(user.getDob());
+		user.setEmail(request.getParameter("email"));
+		user.setPhone(request.getParameter("phone"));
+		user.setNationality(request.getParameter("nationality"));
+		user.setCity(request.getParameter("city"));
+		user.setAddress(request.getParameter("address"));
+		user.setSalary(Long.parseLong(request.getParameter("salary")));
 	}
 
 }

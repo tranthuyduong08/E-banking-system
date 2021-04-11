@@ -46,6 +46,7 @@
 									<th>Open Date</th>
 									<th>Close Date</th>
 									<th>Status</th>
+									<th>Pay</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -58,7 +59,20 @@
 										<td>${loanAccounts.remainAmount}</td>
 										<td>${loanAccounts.openDate}</td>
 										<td>${loanAccounts.closeDate}</td>
-										<td><span class="badge badge-pending">Active</span></td>										
+										<c:if test = "${loanAccounts.status == 2}">
+											<td><span class="badge badge-pending">Finished</span></td>
+										</c:if>
+										<c:if test = "${loanAccounts.status == 1}">
+											<td><span class="badge badge-pending">Active</span></td>
+										</c:if>	
+										<c:if test = "${loanAccounts.status == 0}">
+											<td><span class="badge badge-pending">Pending</span></td>
+										</c:if>	
+										<td>
+											<c:if test = "${loanAccounts.status == 1}">
+												<a href="<c:url value='/customer/loan-account/pay'/>" ><i class="fa fa-usd"></i></a>
+											</c:if>	
+										</td>									
 									</tr>
 								</c:forEach>
 							</tbody>

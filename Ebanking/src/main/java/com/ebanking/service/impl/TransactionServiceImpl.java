@@ -1,7 +1,10 @@
 package com.ebanking.service.impl;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,10 +22,40 @@ public class TransactionServiceImpl implements TransactionService{
 	private TransactionRepository transactionRepository;
 	
 	@Override
-	public Iterable<Transaction> findAll() {
+	public List<Transaction> findAll() {
 		return transactionRepository.findAll();
 	}
 
+	@Override
+	public List<Transaction> findAllDeposit() {
+		List<Transaction> allTransactions = findAll();
+		List<Transaction> depositTransactions = new ArrayList<>();
+		for(Transaction transaction : allTransactions) {
+			if(transaction.getType().equals("Deposit")) {
+				depositTransactions.add(transaction);
+			}
+		}
+		return depositTransactions;
+	}
+
+	@Override
+	public List<Transaction> findAllWithdraw() {
+		List<Transaction> allTransactions = findAll();
+		List<Transaction> withdrawTransactions = new ArrayList<>();
+		for(Transaction transaction : allTransactions) {
+			if(transaction.getType().equals("Withdraw")) {
+				withdrawTransactions.add(transaction);
+			}
+		}
+		return withdrawTransactions;
+	}
+
+	@Override
+	public List<Transaction> findAllTransfer() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
 	@Override
 	public Transaction find(long id) {
 		return transactionRepository.findOne(id);
@@ -49,4 +82,49 @@ public class TransactionServiceImpl implements TransactionService{
 		return null;
 	}
 
+	@Override
+	public void createDeposit(Transaction transaction, User user, HttpServletRequest request) {
+		transaction.setCurrentAccount(user.getCurrentAccounts());
+		transaction.setAmount(Integer.parseInt(request.getParameter("amount")));
+		transaction.setDate(new Date());
+		transaction.setType("Deposit");
+		transaction.setDescription(request.getParameter("description"));
+		transaction.setReceiver(user);
+		transaction.setStatus(0);	
+	}
+	
+	@Override
+	public void createWithdraw(Transaction transaction, User user, HttpServletRequest request) {
+		transaction.setCurrentAccount(user.getCurrentAccounts());
+		transaction.setAmount(Integer.parseInt(request.getParameter("amount")));
+		transaction.setDate(new Date());
+		transaction.setReceiver(user);
+		transaction.setType("Withdraw");
+		transaction.setDescription(request.getParameter("description"));
+		transaction.setStatus(1);
+	}
+
+	@Override
+	public List<Transaction> getCurrentUserDeposit(User user) {
+		List<Transaction> allTransaction = findAll();
+		List<Transaction> transactions = new ArrayList<>();
+		for (Transaction transaction : allTransaction) {
+			if (transaction.getReceiver().getId() == user.getId() && transaction.getType().equals("Deposit")) {
+				transactions.add(transaction);
+			}
+		}
+		return transactions;
+	}
+
+	@Override
+	public List<Transaction> getCurrentUserWithdraw(User user) {
+		List<Transaction> allTransaction = findAll();
+		List<Transaction> transactions = new ArrayList<>();
+		for (Transaction transaction : allTransaction) {
+			if (transaction.getReceiver().getId() == user.getId() && transaction.getType().equals("Withdraw")) {
+				transactions.add(transaction);
+			}
+		}
+		return transactions;
+	}
 }

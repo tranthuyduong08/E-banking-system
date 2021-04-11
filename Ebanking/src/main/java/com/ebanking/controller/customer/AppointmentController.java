@@ -11,8 +11,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -36,34 +38,34 @@ public class AppointmentController {
 	// APPOINTMENT CONTROLLER	
 		@RequestMapping(value = "/customer/appointment", method = RequestMethod.GET)
 		public ModelAndView customerViewAppointment(ModelMap modelMap) {
-			modelMap.put("appointment", appointmentService.findAll());
+			User user = userService.getCurrentUser();
+			modelMap.put("appointment", appointmentService.findByUser(user));
 			ModelAndView mav = new ModelAndView("customer/appointment/appointment-list");
 			return mav;
 		}
 		
 		@RequestMapping(value = "/customer/appointment/create", method = RequestMethod.GET)
-		public ModelAndView customerCreateAppointment(Map<String, Object> model) {		
-			ModelAndView mav = new ModelAndView("customer/appointment/create-appointment");
+		public ModelAndView customerCreateAppointment(Map<String, Object> model) {				
 			Appointment appointment = new Appointment();
 			model.put("appointment", appointment);
+			ModelAndView mav = new ModelAndView("customer/appointment/create-appointment");
 			return mav;
 		}
 		
 		@RequestMapping(value = "/customer/appointment/create", method = RequestMethod.POST)
-		public String customerCreateAppointment(@Valid Appointment appointment, BindingResult result, HttpServletRequest request) throws ParseException {
-			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-			MyUser myUser = (MyUser)authentication.getPrincipal();
-			long userId = myUser.getUserId();
-			User user = userService.find(userId);
+		public String customerCreateAppointment(@ModelAttribute("appointment") @Valid Appointment appointment, 
+				BindingResult bindingResult, HttpServletRequest request) throws ParseException {
+			User user = userService.getCurrentUser();
+			appointmentService.createNewAppointment(appointment, user, request);
+			// Check the bindingResult error
+//			System.out.println("BR has error: " + bindingResult.hasErrors() + bindingResult.getFieldError());
 			
-			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm");
-			//Appointment appointment = new Appointment();
-			appointment.setUser(user);
-			appointment.setName(request.getParameter("name"));
-			appointment.setDate(format.parse(request.getParameter("date")));
-			appointment.setDescription(request.getParameter("description"));
+			if( bindingResult.hasErrors()) {
+//				System.out.println("Error: " + appointment.toString());
+				return "customer/appointment/create-appointment";
+			}
+//			System.out.println("Success: " + appointment.toString());
 			appointmentService.save(appointment);
-
 			return "redirect:/customer/appointment";
 		}
 		

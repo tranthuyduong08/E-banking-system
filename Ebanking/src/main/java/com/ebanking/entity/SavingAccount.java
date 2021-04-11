@@ -11,6 +11,9 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.NotBlank;
 
 @Entity
 @Table(name = "saving_account")
@@ -22,9 +25,11 @@ public class SavingAccount {
 	@Column(name = "accNo")
 	private String accNo;
 	
+	@NotNull(message = "Please enter amount of money you want to save")
 	@Column(name = "initialAmount")
 	private Integer initialAmount;
 	
+	@NotBlank(message = "Please enter the tenor")
 	@Column(name = "tenor")
 	private String tenor;
 	
@@ -37,8 +42,12 @@ public class SavingAccount {
 	@Column(name = "description")
 	private String description;
 	
+	@NotBlank(message = "Please enter the pincode")
 	@Column(name = "pincode")
 	private String pinCode;
+	
+	@Column(name = "status")
+	private Integer status;
 
 	//FK
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -127,6 +136,19 @@ public class SavingAccount {
 	public void setPinCode(String pinCode) {
 		this.pinCode = pinCode;
 	}
-	
-	
+
+	public Integer getStatus() {
+		return status;
+	}
+
+	public void setStatus(Integer status) {
+		this.status = status;
+	}
+
+	@Override
+	public String toString() {
+		return "SavingAccount [id=" + id + ", accNo=" + accNo + ", initialAmount=" + initialAmount + ", tenor=" + tenor
+				+ ", openDate=" + openDate + ", closeDate=" + closeDate + ", description=" + description + ", pinCode="
+				+ pinCode + ", status=" + status + ", user=" + user + ", interestRate=" + interestRate + "]";
+	}	
 }

@@ -44,17 +44,24 @@
 									<th>Date</th>
 									<th>Description</th>
 									<th>Status</th>
+									<th></th>
 								</tr>
 							</thead>
 							<tbody>
 								<c:forEach var="appointment" items="${appointment}" varStatus="i">
 									<tr>
 										<td>${i.index +1 }</td>
-										<td>${appointment.user}</td>	
+										<td>${appointment.user.firstName} ${appointment.user.lastName}</td>	
 										<td>${appointment.name}</td>
 										<td>${appointment.date}</td>
 										<td>${appointment.description}</td>
-										<td><span class="badge badge-pending">Pending</span></td>																		
+										<c:if test = "${appointment.status == 0}">
+											<td><a style="color: grey;"><i class="fa fa-spinner"></i> Pending</a></td>
+										</c:if>
+										<c:if test = "${appointment.status == 1}">
+											<td><a style="color: green;"><i class="fa fa-check"></i> Accepted</a></td>
+										</c:if>
+										<td><a href="<c:url value='/admin/appointment'/>"><i class="fa fa-list"></i></a></td>																	
 									</tr>
 								</c:forEach>
 							</tbody>

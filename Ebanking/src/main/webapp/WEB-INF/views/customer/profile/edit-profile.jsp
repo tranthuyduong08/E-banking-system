@@ -52,7 +52,6 @@
 								<div class="col-12 col-md-9">
 									<form:input type="text" id="text-input" placeholder="Enter First Name" path="firstName" value="${user.firstName}"
 									readonly="true" class="form-control"/>
-									<small class="form-text text-muted">This is a help text</small>
 								</div>
 							</div>
 							<div class="row form-group">
@@ -89,6 +88,7 @@
 								<div class="col-12 col-md-9">
 									<form:input type="email" id="email-input" placeholder="Enter Email" path="email" value="${user.email}"
 									class="form-control"/>
+									<small class="form-text text-muted"><form:errors path="email" style="color:red;" cssClass="error"/></small>
 								</div>
 							</div>
 							<div class="row form-group">
@@ -98,6 +98,7 @@
 								<div class="col-12 col-md-9">
 									<form:input type="text" id="text-input" placeholder="Enter Phone" path="phone" value="${user.phone}"
 									class="form-control"/>
+									<small class="form-text text-muted"><form:errors path="phone" style="color:red;" cssClass="error"/></small>
 								</div>
 							</div>
 							<div class="row form-group">

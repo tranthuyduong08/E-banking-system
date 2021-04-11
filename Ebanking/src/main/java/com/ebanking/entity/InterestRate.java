@@ -10,6 +10,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.NotBlank;
 
 @Entity
 @Table(name = "interest_rate")
@@ -18,14 +21,13 @@ public class InterestRate {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
+	@NotBlank(message = "Please enter specific type")
 	@Column(name = "type")
 	private String type;
 	
+	@NotNull(message = "Please enter interest rate")
 	@Column(name = "interestRate")
-	private Integer interestRate;
-	
-	@Column(name = "amount")
-	private Integer amount;
+	private Double interestRate;
 	
 	// FK
 	@OneToMany(mappedBy="interestRate")
@@ -49,22 +51,14 @@ public class InterestRate {
 		this.type = type;
 	}
 
-	public Integer getInterestRate() {
+	public Double getInterestRate() {
 		return interestRate;
 	}
 
-	public void setInterestRate(Integer interestRate) {
+	public void setInterestRate(Double interestRate) {
 		this.interestRate = interestRate;
 	}
-
-	public Integer getAmount() {
-		return amount;
-	}
-
-	public void setAmount(Integer amount) {
-		this.amount = amount;
-	}
-
+	
 	public List<LoanAccount> getLoanAccount() {
 		return loanAccount;
 	}

@@ -53,7 +53,13 @@
 										<td>${appointment.name}</td>
 										<td>${appointment.date}</td>
 										<td>${appointment.description}</td>
-										<td><span class="badge badge-pending">Pending</span></td>
+										<c:if test = "${appointment.status == 0}">
+											<td><span class="badge badge-pending">Pending</span></td>
+										</c:if>
+										<c:if test = "${appointment.status == 1}">
+											<td><span class="badge badge-pending">Accepted</span></td>
+										</c:if>
+										<!-- <td><span class="badge badge-pending">Pending</span></td> -->
 										<td><a href="<c:url value='/customer/appointment/delete/${appointment.id}'/>"><i class="fa fa-trash"></i></a></td>
 									</tr>
 								</c:forEach>

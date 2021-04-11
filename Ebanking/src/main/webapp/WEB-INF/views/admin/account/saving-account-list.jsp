@@ -38,29 +38,32 @@
 							class="table table-striped table-bordered">
 							<thead>
 								<tr>
+									<th>#</th>
 									<th>Account Number</th>
 									<th>Customer</th>
 									<th>Tenor</th>
-									<th>Initial Amount</th>
-									<th>Open Date</th>
-									<th>Close Date</th>
+									<th>Initial Amount</th>									
 									<th>Status</th>
-									<th></th>
 									<th></th>
 								</tr>
 							</thead>
 							<tbody>
-								<tr>
-									<td>Tiger Nixon</td>
-									<td>System Architect</td>
-									<td>Edinburgh</td>
-									<td>$320,800</td>
-									<td></td>
-									<td></td>
-									<td></td>
-									<td><a href="<c:url value='/admin/saving-account'/>"><i class="fa fa-edit"></i></a></td>
-									<td></td>
-								</tr>
+								<c:forEach var="savingAccount" items="${savingAccount}" varStatus="i">
+									<tr>
+										<td>${i.index +1 }</td>
+										<td>${savingAccount.accNo}</td>
+										<td>${savingAccount.user.firstName} ${savingAccount.user.lastName}</td>
+										<td>${savingAccount.tenor}</td>
+										<td>${savingAccount.initialAmount}</td>										
+										<c:if test = "${savingAccount.status == 0}">
+											<td><a style="color: red;">Cancel</a></td>
+										</c:if>
+										<c:if test = "${savingAccount.status == 1}">
+											<td><a style="color: green;">Active</a></td>
+										</c:if> 
+										<td><a href="<c:url value='/admin/saving-account'/>"><i class="fa fa-edit"></i></a></td>
+									</tr>
+								</c:forEach>								
 							</tbody>
 						</table>
 					</div>

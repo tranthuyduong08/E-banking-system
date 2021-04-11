@@ -33,7 +33,7 @@
 					<div class="card-body">
 						<div class="stat-widget-five">
 							<div class="stat-icon dib flat-color-1">
-								<i class="pe-7s-cash"></i>
+								<a style="color: green; opacity: .6;" href="<c:url value='/customer/current-account'/>"><i class="pe-7s-cash"></i></a>
 							</div>
 							<div class="stat-content">
 								<div class="text-left dib">
@@ -41,7 +41,29 @@
 										<span class="count">${totalAmount}</span> VND
 									</div>
 									<div class="stat-heading">										
-										<div class="stat-heading">Total Balance</div>
+										<div class="stat-heading"><a href="<c:url value='/customer/current-account'/>">Total Balance</a></div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			<div class="col-lg-3 col-md-6">
+				<div class="card">
+					<div class="card-body">
+						<div class="stat-widget-five">
+							<div class="stat-icon dib flat-color-2">
+								<a style="color: purple; opacity: .6;" href="<c:url value='/customer/transaction/withdraw/history'/>"><i class="pe-7s-news-paper"></i></a>
+							</div>
+							<div class="stat-content">
+								<div class="text-left dib">
+									<div class="stat-text">
+										<span class="count">${withdrawTime}</span>
+									</div>
+									<div class="stat-heading">										
+										<div class="stat-heading"><a href="<c:url value='/customer/transaction/withdraw/history'/>">Withdrawal Record</a></div>
 									</div>
 								</div>
 							</div>
@@ -59,16 +81,7 @@
 					</div>
 					<div class="card-body card-block">
 						<c:url var="withdraw" value='/customer/transaction/withdraw'/>
-						<form:form action="${withdraw}" method="post" modelAttribute="transaction" class="form-horizontal">
-							<div class="row form-group">
-								<div class="col col-md-4">
-									<label class=" form-control-label">Account Number</label>
-								</div>
-								<div class="col-12 col-md-8">
-									<form:input type="text" placeholder="Enter Account Number" path="currentAccount" 
-									class="form-control"/>
-								</div>
-							</div>							
+						<form:form action="${withdraw}" method="post" modelAttribute="transaction" class="form-horizontal">						
 							<div class="row form-group">
 								<div class="col col-md-4">
 									<label for="text-input" class=" form-control-label">Amount</label>
@@ -76,6 +89,7 @@
 								<div class="col-12 col-md-5">
 									<form:input type="number" id="text-input" placeholder="Enter Amount" path="amount"
 									class="form-control"/>
+									<small class="form-text text-muted"><form:errors path="amount" style="color:red;" cssClass="error"/></small>
 								</div>
 							</div>
 							<div class="row form-group">
@@ -94,9 +108,6 @@
 								<button type="reset" class="btn btn-danger btn-sm">
 									<i class="fa fa-ban"></i> Reset
 								</button>
-								<a href="<c:url value='/customer/transaction/withdraw/history'/>">
-									<button type="button" class="btn btn-secondary btn-sm"><i class="fa fa-list"></i> Withdraw History</button>
-								</a>
 							</div>
 						</form:form>
 					</div>					

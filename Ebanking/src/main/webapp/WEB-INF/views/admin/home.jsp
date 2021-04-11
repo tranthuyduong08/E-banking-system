@@ -32,10 +32,10 @@
 							<div class="stat-content">
 								<div class="text-left dib">
 									<div class="stat-text">
-										<span class="count">2</span>
+										<span class="count">${allUsers}</span>
 									</div>
 									<div class="stat-heading">
-										<a href="<c:url value='/admin/customer'/>">Customer</a>
+										<div class="stat-heading"><a href="<c:url value='/admin/customer'/>">Users</a></div>
 									</div>
 								</div>
 							</div>
@@ -53,7 +53,7 @@
 							<div class="stat-content">
 								<div class="text-left dib">
 									<div class="stat-text">
-										<span class="count">6</span> 
+										<span class="count">${allAccounts}</span> 
 									</div>
 									<div class="stat-heading">Account</div>
 								</div>
@@ -72,7 +72,7 @@
 							<div class="stat-content">
 								<div class="text-left dib">
 									<div class="stat-text">
-										<span class="count">4</span>
+										<span class="count">${allTransactions}</span>
 									</div>
 									<div class="stat-heading">Transaction</div>
 								</div>
@@ -91,9 +91,9 @@
 							<div class="stat-content">
 								<div class="text-left dib">
 									<div class="stat-text">
-										<span class="count">2</span>
+										<span class="count">${allAppointments}</span>
 									</div>
-									<div class="stat-heading">Appointment</div>
+									<div class="stat-heading"><a href="<c:url value='/admin/appointment'/>">Appointment</a></div>
 								</div>
 							</div>
 						</div>

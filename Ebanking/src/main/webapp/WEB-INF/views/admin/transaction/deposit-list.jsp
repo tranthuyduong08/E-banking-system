@@ -39,21 +39,32 @@
 							class="table table-striped table-bordered">
 							<thead>
 								<tr>
+									<th>#</th>
 									<th>Account Number</th>
 									<th>Customer</th>
 									<th>Amount</th>
 									<th>Date</th>
-									<th>Description</th>
+									<th>Status</th>
+									<th></th>
 								</tr>
 							</thead>
 							<tbody>
-								<tr>
-									<td>1234567890</td>
-									<td>Xuan Dai Nguyen</td>
-									<td>5000000</td>
-									<td>20/8/2020</td>
-									<td></td>
-								</tr>
+								<c:forEach var="deposit" items="${deposit}" varStatus="i">
+									<tr>
+										<td>${i.index +1 }</td>
+										<td>${deposit.currentAccount.accNo}</td>
+										<td>${deposit.currentAccount.user.firstName} ${deposit.currentAccount.user.lastName}</td>
+										<td>${deposit.amount}</td>
+										<td>${deposit.date}</td>
+										<c:if test = "${deposit.status == 0}">
+											<td><a style="color: grey;"><i class="fa fa-spinner"></i> Pending</a></td>
+										</c:if>
+										<c:if test = "${deposit.status == 1}">
+											<td><a style="color: green;"><i class="fa fa-check"></i> Done</a></td>
+										</c:if> 
+										<td><a href="<c:url value='/admin/transaction/deposit'/>"><i class="fa fa-list"></i></a></td>
+									</tr>
+								</c:forEach>								
 							</tbody>
 						</table>
 					</div>

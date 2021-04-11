@@ -2,14 +2,18 @@ package com.ebanking.controller.admin;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -17,8 +21,17 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ebanking.service.AppointmentService;
+import com.ebanking.service.CurrentAccountService;
+import com.ebanking.service.LoanAccountService;
+import com.ebanking.service.SavingAccountService;
+import com.ebanking.service.TransactionService;
 import com.ebanking.service.UserService;
 import com.ebanking.dto.MyUser;
+import com.ebanking.entity.Appointment;
+import com.ebanking.entity.CurrentAccount;
+import com.ebanking.entity.LoanAccount;
+import com.ebanking.entity.SavingAccount;
+import com.ebanking.entity.Transaction;
 import com.ebanking.entity.User;
 
 @Controller(value="adminController")
@@ -28,11 +41,41 @@ public class AdminController {
 	private UserService userService;
 	
 	@Autowired
+	private CurrentAccountService currentAccountService;
+	
+	@Autowired
+	private SavingAccountService savingAccountService;
+	
+	@Autowired
+	private LoanAccountService loanAccountService;
+	
+	@Autowired
+	private TransactionService transactionService;
+	
+	@Autowired
 	private AppointmentService appointmentService;
 	
 // HOME CONTROLLER
 	@RequestMapping(value = "/admin", method = RequestMethod.GET)
-	public ModelAndView adminHomePage() {
+	public ModelAndView adminHomePage(ModelMap modelMap) {
+		//Get all customer
+		List<User> allUsers = userService.findAll();
+		modelMap.addAttribute("allUsers", allUsers.size());
+		
+		//Get all account
+		List<CurrentAccount> allCurrentAccount = currentAccountService.findAll();
+		List<SavingAccount> allSavingAccount = savingAccountService.findAll();
+		List<LoanAccount> allLoanAccount = loanAccountService.findAll();
+		int allAccounts = allCurrentAccount.size() + allSavingAccount.size() + allLoanAccount.size();
+		modelMap.addAttribute("allAccounts", allAccounts);
+		
+		//Get all transaction
+		List<Transaction> allTransaction = transactionService.findAll();
+		modelMap.addAttribute("allTransactions", allTransaction.size());
+		
+		//Get all appointment
+		List<Appointment> allAppointments = appointmentService.findAll();
+		modelMap.addAttribute("allAppointments", allAppointments.size());
 		ModelAndView mav = new ModelAndView("admin/home");
 		return mav;
 	}
@@ -40,10 +83,7 @@ public class AdminController {
 // PROFILE CONTROLLER
 	@RequestMapping(value = "/admin/profile", method = RequestMethod.GET)
 	public ModelAndView adminProfile(ModelMap modelMap) {
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		MyUser myUser = (MyUser)authentication.getPrincipal();
-		long userId = myUser.getUserId();
-		User user = userService.find(userId);
+		User user = userService.getCurrentUser();
 		 
 		ModelAndView mav = new ModelAndView("admin/profile/profile");
 		modelMap.addAttribute("user", user);
@@ -52,10 +92,7 @@ public class AdminController {
 	
 	@RequestMapping(value = "/admin/profile/edit", method = RequestMethod.GET)
 	public ModelAndView adminEditProfile(ModelMap modelMap) {
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		MyUser myUser = (MyUser)authentication.getPrincipal();
-		long userId = myUser.getUserId();
-		User user = userService.find(userId);
+		User user = userService.getCurrentUser();
 		
 		ModelAndView mav = new ModelAndView("admin/profile/edit-profile");
 		modelMap.addAttribute("user", user);
@@ -64,10 +101,7 @@ public class AdminController {
 	
 	@RequestMapping(value = "/admin/profile/edit", method = RequestMethod.POST)
 	public String adminEditProfile(HttpServletRequest request){
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		MyUser myUser = (MyUser)authentication.getPrincipal();
-		long userId = myUser.getUserId();
-		User user = userService.find(userId);
+		User user = userService.getCurrentUser();
 		
 		user.setEmail(request.getParameter("email").trim());
 		user.setPhone(request.getParameter("phone").trim());		
@@ -78,10 +112,7 @@ public class AdminController {
 	
 	@RequestMapping(value = "/admin/profile/change-password", method = RequestMethod.GET)
 	public ModelAndView adminChangePassword(ModelMap modelMap) {
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		MyUser myUser = (MyUser)authentication.getPrincipal();
-		long userId = myUser.getUserId();
-		User user = userService.find(userId);
+		User user = userService.getCurrentUser();
 		
 		ModelAndView mav = new ModelAndView("admin/profile/change-password");
 		modelMap.addAttribute("user", user);
@@ -116,7 +147,7 @@ public class AdminController {
 		user.setNationality(request.getParameter("nationality").trim());
 		user.setCity(request.getParameter("city").trim());
 		user.setAddress(request.getParameter("address").trim());
-		user.setSalary(Integer.parseInt(request.getParameter("salary").trim()));
+		user.setSalary(Long.parseLong(request.getParameter("salary").trim()));
 		user.setUsername(request.getParameter("username").trim());
 		user.setPassword(request.getParameter("password").trim());
 		
@@ -128,75 +159,38 @@ public class AdminController {
 	
 	@RequestMapping(value = "/admin/customer/edit/{id}", method = RequestMethod.GET)
 	@ResponseBody
-	public ModelAndView adminEditCustomer(@PathVariable("id") long id, ModelMap modelMap) {
+	public ModelAndView adminEditCustomer(@PathVariable("id") long id, ModelMap modelMap, Map<String, Object> model) {
 		User user = userService.find(id);
 		modelMap.addAttribute("user", user);
+		model.put("user", user);
 		ModelAndView mav = new ModelAndView("admin/customer/edit-customer");
 		return mav;
 	}
 	// TODO
 	@RequestMapping(value = "/admin/customer/edit/{id}", method = RequestMethod.POST)
-	public String adminEditCustomer(@PathVariable("id") Long id, HttpServletRequest request) {
+	public String adminEditCustomer(@PathVariable("id") Long id, @Valid User user, BindingResult result, HttpServletRequest request) throws ParseException {
+		user = userService.find(id);
+		SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
 		
+		user.setFirstName(request.getParameter("firstName"));
+		user.setLastName(request.getParameter("lastName"));
+		user.setUsername(request.getParameter("username"));
+		user.setGender(request.getParameter("gender"));
+		//user.setDob(format.parse(request.getParameter("dob")));
+		user.setNationality(request.getParameter("nationality"));
+		user.setCity(request.getParameter("city"));
+		user.setAddress(request.getParameter("address"));
+		//user.setSalary(Long.parseLong(request.getParameter("salary")));
+		user.setEmail(request.getParameter("email"));
+		user.setPhone(request.getParameter("phone"));
+		userService.save(user);
 		return "redirect:/admin/customer";
 	}
-	// TODO
+
 	@RequestMapping(value = "/admin/customer/delete/{id}", method = RequestMethod.POST)
 	public String adminDeleteCustomer(@PathVariable("id") Long id) {
+		userService.delete(id);
 		return "redirect:/admin/customer";
 	}
 
-// ACCOUNT CONTROLLER
-	@RequestMapping(value = "/admin/current-account", method = RequestMethod.GET)
-	public ModelAndView adminViewCurrentAccount() {
-		ModelAndView mav = new ModelAndView("admin/account/current-account-list");
-		return mav;
-	}
-
-	@RequestMapping(value = "/admin/saving-account", method = RequestMethod.GET)
-	public ModelAndView adminViewSavingAccount() {
-		ModelAndView mav = new ModelAndView("admin/account/saving-account-list");
-		return mav;
-	}
-
-	@RequestMapping(value = "/admin/loan-account", method = RequestMethod.GET)
-	public ModelAndView adminViewLoanAccount() {
-		ModelAndView mav = new ModelAndView("admin/account/loan-account-list");
-		return mav;
-	}
-	
-// TRANSACTION CONTROLLER
-	@RequestMapping(value = "/admin/transaction/deposit", method = RequestMethod.GET)
-	public ModelAndView adminViewDeposit() {
-		ModelAndView mav = new ModelAndView("admin/transaction/deposit-list");
-		return mav;
-	}
-	
-	@RequestMapping(value = "/admin/transaction/withdraw", method = RequestMethod.GET)
-	public ModelAndView adminViewWithdraw() {
-		ModelAndView mav = new ModelAndView("admin/transaction/withdraw-list");
-		return mav;
-	}
-	
-	@RequestMapping(value = "/admin/transaction/transfer", method = RequestMethod.GET)
-	public ModelAndView adminViewTransfer() {
-		ModelAndView mav = new ModelAndView("admin/transaction/transfer-list");
-		return mav;
-	}
-	
-// APPOINTMENT CONTROLLER
-	@RequestMapping(value = "/admin/appointment", method = RequestMethod.GET)
-	public ModelAndView adminViewAppointment(ModelMap modelMap) {
-		modelMap.put("appointment", appointmentService.findAll());
-		ModelAndView mav = new ModelAndView("admin/appointment/appointment-list");
-		return mav;
-	}
-	
-// EXTRAS CONTROLLER
-	@RequestMapping(value = "/admin/interest-rate", method = RequestMethod.GET)
-	public ModelAndView adminViewInterestRate() {
-		ModelAndView mav = new ModelAndView("admin/interest-rate/interest-rate-list");
-		return mav;
-	}
-	
 }

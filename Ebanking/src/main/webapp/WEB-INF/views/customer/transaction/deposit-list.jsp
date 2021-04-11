@@ -41,6 +41,7 @@
 									<th>#</th>
 									<th>Amount</th>	
 									<th>Date</th>
+									<th>Status</th>
 									<th>Description</th>
 								</tr>
 							</thead>
@@ -50,6 +51,12 @@
 										<td>${i.index +1 }</td>
 										<td>${transaction.amount}</td>
 										<td>${transaction.date}</td>
+										<c:if test = "${transaction.status == 0}">
+											<td><span class="badge badge-pending">Pending</span></td>
+										</c:if>
+										<c:if test = "${transaction.status == 1}">
+											<td><span class="badge badge-pending">Done</span></td>
+										</c:if>
 										<td>${transaction.description}</td>										
 									</tr>
 								</c:forEach>

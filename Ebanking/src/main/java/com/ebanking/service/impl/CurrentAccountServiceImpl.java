@@ -1,6 +1,7 @@
 package com.ebanking.service.impl;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -31,7 +32,7 @@ public class CurrentAccountServiceImpl implements CurrentAccountService {
 	private TransactionService transactionService;
 	
 	@Override
-	public Iterable<CurrentAccount> findAll() {
+	public List<CurrentAccount> findAll() {
 		return currentAccountRepository.findAll();
 	}
 
@@ -51,11 +52,8 @@ public class CurrentAccountServiceImpl implements CurrentAccountService {
 	}
 
 	@Override
-	public void deposit(int amount, HttpServletRequest request) {
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		MyUser myUser = (MyUser)authentication.getPrincipal();
-		long userId = myUser.getUserId();
-		User user = userService.find(userId);
+	public void deposit(int amount, User user, HttpServletRequest request) {
+		user = userService.getCurrentUser();
 		
 		CurrentAccount currentAccount = user.getCurrentAccounts();
 		int newBalance = currentAccount.getBalance() + amount;
@@ -80,6 +78,11 @@ public class CurrentAccountServiceImpl implements CurrentAccountService {
 	public CurrentAccount createNewCurrentAccount() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public void changePinCode(CurrentAccount currentAccount, HttpServletRequest request) {
+		currentAccount.setPinCode(request.getParameter("pinCode"));
 	}
 
 }

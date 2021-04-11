@@ -32,7 +32,7 @@
 							<div class="stat-content">
 								<div class="text-left dib">
 									<div class="stat-text">
-										<span class="count">${totalAmount}</span> VND
+										<span class="count">${totalAmount}</span>VND
 									</div>
 									<div class="stat-heading">										
 										<div class="stat-heading">Total Balance</div>
@@ -53,7 +53,7 @@
 							<div class="stat-content">
 								<div class="text-left dib">
 									<div class="stat-text">
-										<span class="count">${totalSavingBalance}</span> VND
+										<span class="count">${totalSavingBalance}</span>VND
 									</div>
 									<div class="stat-heading">Saving</div>
 								</div>
@@ -72,7 +72,7 @@
 							<div class="stat-content">
 								<div class="text-left dib">
 									<div class="stat-text">
-										<span class="count">${totalLoanAmount}</span> VND
+										<span class="count">${totalLoanBalance}</span>VND
 									</div>
 									<div class="stat-heading">Loan</div>
 								</div>
@@ -91,7 +91,7 @@
 							<div class="stat-content">
 								<div class="text-left dib">
 									<div class="stat-text">
-										<span class="count">0</span>
+										<span class="count">${totalTransactionTime}</span>
 									</div>
 									<div class="stat-heading">Transfer Times</div>
 								</div>
@@ -161,8 +161,13 @@
 										<td>1</td>
 										<td>Primary Account</td>
 										<td>${currentAccount.accNo}</td>
-										<td><span class="count">${currentAccount.balance}</span></td>
-										<td><span class="badge badge-complete">Enable</span></td>											
+										<td><span class="count">${currentAccount.balance}</span></td>	
+										<c:if test = "${currentAccount.status == 0}">
+											<td><span class="badge badge-pending">Pending</span></td>
+										</c:if>
+										<c:if test = "${currentAccount.status == 1}">
+											<td><span class="badge badge-complete">Enable</span></td>
+										</c:if>									
 									</tr>																								
 								</tbody>
 							</table>

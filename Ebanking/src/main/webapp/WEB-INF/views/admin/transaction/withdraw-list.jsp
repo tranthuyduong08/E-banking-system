@@ -38,21 +38,25 @@
 							class="table table-striped table-bordered">
 							<thead>
 								<tr>
+									<th>#</th>
 									<th>Account Number</th>
 									<th>Customer</th>
 									<th>Amount</th>
 									<th>Date</th>
-									<th>Description</th>
+									<th></th>
 								</tr>
 							</thead>
 							<tbody>
-								<tr>
-									<td>1234567890</td>
-									<td>Xuan Dai Nguyen</td>
-									<td>5000000</td>
-									<td>20/8/2020</td>
-									<td></td>
-								</tr>
+								<c:forEach var="withdraw" items="${withdraw}" varStatus="i">
+									<tr>
+										<td>${i.index +1 }</td>
+										<td>${withdraw.currentAccount.accNo}</td>
+										<td>${withdraw.currentAccount.user.firstName} ${withdraw.currentAccount.user.lastName}</td>
+										<td>${withdraw.amount}</td>
+										<td>${withdraw.date}</td>													
+										<td><a href="<c:url value='/admin/transaction/deposit'/>"><i class="fa fa-list"></i></a></td>
+									</tr>
+								</c:forEach>
 							</tbody>
 						</table>
 					</div>

@@ -45,6 +45,7 @@
 									<th>Open Date</th>
 									<th>Close Date</th>
 									<th>Status</th>
+									<th></th>
 								</tr>
 							</thead>
 							<tbody>								
@@ -56,7 +57,16 @@
 										<td>${savingAccounts.initialAmount}</td>
 										<td>${savingAccounts.openDate}</td>
 										<td>${savingAccounts.closeDate}</td>
-										<td><span class="badge badge-pending">Active</span></td>										
+										<c:if test = "${savingAccounts.status == 0}">
+											<td><span class="badge badge-pending">Deleted</span></td>
+										</c:if>
+										<c:if test = "${savingAccounts.status == 1}">
+											<td><span class="badge badge-pending">Active</span></td>
+										</c:if>								
+										<td>
+											<a href="#mediumModal" class="deleteBTN" data-toggle="modal" data-target="#mediumModal"><i class="fa fa-trash"></i></a>
+											<input type="hidden" id="id" value="${savingAccounts.id}" />
+										</td>									
 									</tr>
 								</c:forEach>
 							</tbody>
@@ -65,6 +75,7 @@
 				</div>
 			</div>
 		</div>
+        
 		<div class="row justify-content-center">
 			<div class="col-lg-4">
 				<a href="<c:url value='/customer/saving-account/create'/>">
@@ -72,7 +83,39 @@
 				</a>
 			</div>
 		</div>
+        
+        <div class="modal fade" id="mediumModal" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+	            <form method="post" action="<c:url value='/customer/saving-account/delete'/>">
+	                <div class="modal-content">
+	                    <div class="modal-header">
+	                        <h5 class="modal-title" id="mediumModalLabel">Delete Saving Account</h5>
+	                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	                            <span aria-hidden="true">&times;</span>
+	                        </button>
+	                    </div>
+	                    <div class="modal-body">
+	                        <p>You will remove this saving account completely. Do you want to continue?</p>
+	                    </div>
+	                    <div class="modal-footer">
+	                        <input type="button" class="btn btn-secondary" data-dismiss="modal" value="Cancel">
+	                        <input type="submit" class="btn btn-danger" value="Delete" />
+	                        <input type="hidden" name="id" id="id" />
+	                    </div>
+	                </div>
+	            </form>
+            </div>
+        </div>  
 	</div>
 	<!-- .animated -->
 </div>
 <!-- .content -->
+
+<script type="text/javascript">
+	jQuery(document).ready(function($) {
+		jQuery('table .deleteBTN').on('click', function($){
+			var id = jQuery(this).parent().find('#id').val();
+			jQuery('#mediumModal #id').val(id);	 
+		});
+	});
+</script>

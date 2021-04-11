@@ -28,11 +28,7 @@ public class ProfileController {
 	// PROFILE CONTROLLER
 		@RequestMapping(value = "/customer/profile", method = RequestMethod.GET)
 		public ModelAndView customerProfile(ModelMap modelMap) {
-			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-			MyUser myUser = (MyUser)authentication.getPrincipal();
-			long userId = myUser.getUserId();
-			User user = userService.find(userId);
-			
+			User user = userService.getCurrentUser();
 			ModelAndView mav = new ModelAndView("customer/profile/profile");
 			modelMap.addAttribute("user", user);
 			return mav;
@@ -40,11 +36,7 @@ public class ProfileController {
 		
 		@RequestMapping(value = "/customer/profile/edit", method = RequestMethod.GET)
 		public ModelAndView customerEditProfile(ModelMap modelMap, Map<String, Object> model) {
-			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-			MyUser myUser = (MyUser)authentication.getPrincipal();
-			long userId = myUser.getUserId();
-			User user = userService.find(userId);
-			
+			User user = userService.getCurrentUser();
 			User newUser = new User();
 			model.put("user", newUser);
 			ModelAndView mav = new ModelAndView("customer/profile/edit-profile");
@@ -53,25 +45,19 @@ public class ProfileController {
 		}
 		
 		@RequestMapping(value = "/customer/profile/edit", method = RequestMethod.POST)
-		public String customerEditProfile(@Valid User user, BindingResult result, HttpServletRequest request){
-			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-			MyUser myUser = (MyUser)authentication.getPrincipal();
-			long userId = myUser.getUserId();
-			user = userService.find(userId);
-			
-			user.setEmail(request.getParameter("email"));
-			user.setPhone(request.getParameter("phone"));
+		public String customerEditProfile(@Valid User user, BindingResult bindingResult, HttpServletRequest request){
+			user = userService.getCurrentUser();
+			if( bindingResult.hasErrors()) {
+				return "customer/profile/edit-profile";
+			}
+			userService.editProfile(user, request);
 			userService.save(user);
 			return "redirect:/customer/profile";
 		}
 		
 		@RequestMapping(value = "/customer/profile/change-password", method = RequestMethod.GET)
 		public ModelAndView customerChangePassword(ModelMap modelMap, Map<String, Object> model) {
-			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-			MyUser myUser = (MyUser)authentication.getPrincipal();
-			long userId = myUser.getUserId();
-			User user = userService.find(userId);
-		
+			User user = userService.getCurrentUser();
 			User newUser = new User();
 			model.put("user", newUser);
 			ModelAndView mav = new ModelAndView("customer/profile/change-password");
@@ -80,12 +66,11 @@ public class ProfileController {
 		}
 		
 		@RequestMapping(value = "/customer/profile/change-password", method = RequestMethod.POST)
-		public String customerChangePassword(@Valid User user, BindingResult result, HttpServletRequest request){
-			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-			MyUser myUser = (MyUser)authentication.getPrincipal();
-			long userId = myUser.getUserId();
-			user = userService.find(userId);
-			
+		public String customerChangePassword(@Valid User user, BindingResult bindingResult, HttpServletRequest request){
+			user = userService.getCurrentUser();
+			if( bindingResult.hasErrors()) {
+				return "customer/profile/change-password";
+			}
 			user.setPassword(request.getParameter("password"));
 			userService.hash(user);	
 			userService.save(user);

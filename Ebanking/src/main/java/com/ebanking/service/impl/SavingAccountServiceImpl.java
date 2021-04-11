@@ -1,9 +1,16 @@
 package com.ebanking.service.impl;
 
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.ebanking.entity.InterestRate;
 import com.ebanking.entity.SavingAccount;
 import com.ebanking.entity.User;
 import com.ebanking.repository.SavingAccountRepository;
@@ -19,7 +26,7 @@ public class SavingAccountServiceImpl implements SavingAccountService{
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
 	
 	@Override
-	public Iterable<SavingAccount> findAll() {
+	public List<SavingAccount> findAll() {
 		return savingAccountRepository.findAll();
 	}
 
@@ -41,5 +48,30 @@ public class SavingAccountServiceImpl implements SavingAccountService{
 	@Override
 	public void hash(SavingAccount savingAccount) {
 		savingAccount.setPinCode(bCryptPasswordEncoder.encode(savingAccount.getPinCode()));	
+	}
+
+	@Override
+	public void createNewSavingAccount(SavingAccount savingAccount, User user, HttpServletRequest request) {
+		InterestRate interestRate = new InterestRate();
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(new Date());
+		calendar.add(Calendar.MONTH, Integer.parseInt(savingAccount.getTenor()));
+		
+		savingAccount.setAccNo((long)(Math.random() * 100000000 * 1000000)+"");
+		savingAccount.setTenor(request.getParameter("tenor"));
+		savingAccount.setUser(user);
+		savingAccount.setOpenDate(new Date());
+		System.out.println("Open Date: " + new Date());
+		savingAccount.setCloseDate(calendar.getTime());
+		savingAccount.setDescription(request.getParameter("description"));
+		savingAccount.setInitialAmount(Integer.parseInt(request.getParameter("initialAmount")));
+		savingAccount.setPinCode(request.getParameter("pinCode"));
+		savingAccount.setStatus(1);
+	}
+
+	@Override
+	public void deactiveSavingAccount(SavingAccount savingAccount) {
+		savingAccount.setCloseDate(new Date());
+		savingAccount.setStatus(0);
 	}
 }

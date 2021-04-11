@@ -34,14 +34,16 @@
 						<strong>Edit</strong> Profile
 					</div>
 					<div class="card-body card-block">
-						<form action="<c:url value='/admin/profile/edit'/>" method="post" enctype="multipart/form-data" class="form-horizontal">
+						<c:url var="profileEdit" value='/admin/profile/edit'/>
+						<form:form action="${profileEdit}" method="post" modelAttribute="user" class="form-horizontal">
 							<div class="row form-group">
 								<div class="col col-md-3">
 									<label class=" form-control-label">Username</label>
 								</div>
 								<div class="col-12 col-md-9">
-									<input type="text" placeholder="Enter Username" name="username" value="${user.username}" disabled="" 
-									class="form-control">
+									<form:input type="text" placeholder="Enter Username" path="username" value="${user.username}"  
+									readonly="true" class="form-control"/>
+									<small class="form-text text-muted"><form:errors path="username" style="color:red;" cssClass="error"/></small>
 								</div>
 							</div>
 							<div class="row form-group">
@@ -49,9 +51,9 @@
 									<label for="text-input" class=" form-control-label">First Name</label>
 								</div>
 								<div class="col-12 col-md-9">
-									<input type="text" id="text-input" placeholder="Enter First Name" name="firstname" value="${user.firstName}"
-									disabled="" class="form-control">
-									<small class="form-text text-muted">This is a help text</small>
+									<form:input type="text" id="text-input" placeholder="Enter First Name" path="firstName" value="${user.firstName}"
+									 readonly="true" class="form-control"/>
+									<small class="form-text text-muted"><form:errors path="firstName" style="color:red;" cssClass="error"/></small>
 								</div>
 							</div>
 							<div class="row form-group">
@@ -59,8 +61,9 @@
 									<label for="text-input" class=" form-control-label">Last Name</label>
 								</div>
 								<div class="col-12 col-md-9">
-									<input type="text" id="text-input" placeholder="Enter Last Name" name="lastname" value="${user.lastName}"
-									disabled="" class="form-control">
+									<form:input type="text" id="text-input" placeholder="Enter Last Name" path="lastName" value="${user.lastName}"
+									 readonly="true" class="form-control"/>
+									<small class="form-text text-muted"><form:errors path="lastName" style="color:red;" cssClass="error"/></small>
 								</div>
 							</div>
 							<div class="row form-group">
@@ -68,8 +71,9 @@
 									<label for="text-input" class=" form-control-label">Gender</label>
 								</div>
 								<div class="col-12 col-md-9">
-									<input type="text" id="text-input" placeholder="Enter Gender" name="gender" value="${user.gender}"
-									disabled="" class="form-control">
+									<form:input type="text" id="text-input" placeholder="Enter Gender" path="gender" value="${user.gender}"
+									 readonly="true" class="form-control"/>
+									<small class="form-text text-muted"><form:errors path="gender" style="color:red;" cssClass="error"/></small>
 								</div>
 							</div>
 							<div class="row form-group">
@@ -77,8 +81,9 @@
 									<label for="text-input" class=" form-control-label">Date of Birth</label>
 								</div>
 								<div class="col-12 col-md-9">
-									<input type="date" id="text-input" placeholder="Enter DOB" name="dob" value="${user.dob}"
-									disabled="" class="form-control">
+									<form:input type="date" id="text-input" placeholder="Enter DOB" path="dob" value="${user.dob}"
+									 readonly="true" class="form-control"/>
+									<small class="form-text text-muted"><form:errors path="dob" style="color:red;" cssClass="error"/></small>
 								</div>
 							</div>
 							<div class="row form-group">
@@ -86,8 +91,9 @@
 									<label for="email-input" class=" form-control-label">Email </label>
 								</div>
 								<div class="col-12 col-md-9">
-									<input type="email" id="email-input" placeholder="Enter Email" name="email" value="${user.email}"
-									class="form-control">
+									<form:input type="email" id="email-input" placeholder="Enter Email" path="email" value="${user.email}"
+									class="form-control"/>
+									<small class="form-text text-muted"><form:errors path="email" style="color:red;" cssClass="error"/></small>
 								</div>
 							</div>
 							<div class="row form-group">
@@ -95,8 +101,9 @@
 									<label for="email-input" class=" form-control-label">Phone </label>
 								</div>
 								<div class="col-12 col-md-9">
-									<input type="text" id="text-input" placeholder="Enter Phone" name="phone" value="${user.phone}"
-									class="form-control">
+									<form:input type="text" id="text-input" placeholder="Enter Phone" path="phone" value="${user.phone}"
+									class="form-control"/>
+									<small class="form-text text-muted"><form:errors path="phone" style="color:red;" cssClass="error"/></small>
 								</div>
 							</div>
 							<div class="row form-group">
@@ -104,8 +111,9 @@
 									<label for="email-input" class=" form-control-label">Nationality </label>
 								</div>
 								<div class="col-12 col-md-9">
-									<input type="text" id="text-input" placeholder="Enter Nationality" name="nationality" value="${user.nationality}"
-									disabled="" class="form-control">
+									<form:input type="text" id="text-input" placeholder="Enter Nationality" path="nationality" value="${user.nationality}"
+									 readonly="true" class="form-control"/>
+									<small class="form-text text-muted"><form:errors path="nationality" style="color:red;" cssClass="error"/></small>
 								</div>
 							</div>
 							<div class="row form-group">
@@ -113,8 +121,9 @@
 									<label for="email-input" class=" form-control-label">City </label>
 								</div>
 								<div class="col-12 col-md-9">
-									<input type="text" id="text-input" placeholder="Enter City" name="city" value="${user.city}"
-									disabled="" class="form-control">
+									<form:input type="text" id="text-input" placeholder="Enter City" path="city" value="${user.city}"
+									 readonly="true" class="form-control"/>
+									<small class="form-text text-muted"><form:errors path="city" style="color:red;" cssClass="error"/></small>
 								</div>
 							</div>
 							<div class="row form-group">
@@ -122,8 +131,9 @@
 									<label for="email-input" class=" form-control-label">Address </label>
 								</div>
 								<div class="col-12 col-md-9">
-									<input type="text" id="text-input" placeholder="Enter Address" name="address" value="${user.address}"
-									disabled="" class="form-control">
+									<form:input type="text" id="text-input" placeholder="Enter Address" path="address" value="${user.address}"
+									 readonly="true" class="form-control"/>
+									<small class="form-text text-muted"><form:errors path="address" style="color:red;" cssClass="error"/></small>
 								</div>
 							</div>
 							<div class="row form-group">
@@ -131,8 +141,9 @@
 									<label for="email-input" class=" form-control-label">Salary </label>
 								</div>
 								<div class="col-12 col-md-9">
-									<input type="text" id="text-input" placeholder="Enter Salary" name="salary" value="${user.salary}"
-									disabled="" class="form-control">
+									<form:input type="number" id="text-input" placeholder="Enter Salary" path="salary" value="${user.salary}"
+									 readonly="true" class="form-control"/>
+									<small class="form-text text-muted"><form:errors path="salary" style="color:red;" cssClass="error"/></small>
 								</div>
 							</div>							
 							<hr>
@@ -144,7 +155,7 @@
 									<i class="fa fa-ban"></i> Reset
 								</button>
 							</div>
-						</form>
+						</form:form>
 					</div>					
 				</div>
 			</div>

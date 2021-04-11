@@ -39,29 +39,38 @@
 							class="table table-striped table-bordered">
 							<thead>
 								<tr>
+									<th>#</th>
 									<th>Account Number</th>
 									<th>Customer</th>
 									<th>Tenor</th>
 									<th>Total Amount</th>
-									<th>Remain Amount</th>
-									<th>Open Date</th>
+									<th>Interest Rate(%)</th>
 									<th>Status</th>
 									<th></th>
-									<th></th>
+									
 								</tr>
 							</thead>
 							<tbody>
-								<tr>
-									<td>Tiger Nixon</td>
-									<td>System Architect</td>
-									<td>Edinburgh</td>
-									<td>$320,800</td>
-									<td></td>
-									<td></td>
-									<td></td>
-									<td><a href="<c:url value='/admin/loan-account'/>"><i class="fa fa-edit"></i></a></td>
-									<td></td>
-								</tr>
+								<c:forEach var="loanAccount" items="${loanAccount}" varStatus="i">
+									<tr>
+										<td>${i.index +1 }</td>
+										<td>${loanAccount.accNo}</td>
+										<td>${loanAccount.user.firstName} ${loanAccount.user.lastName}</td>
+										<td>${loanAccount.tenor}</td>
+										<td>${loanAccount.totalAmount}</td>	
+										<td>${loanAccount.interestRate.interestRate}</td>										
+										<c:if test = "${loanAccount.status == 0}">
+											<td><a style="color: gray;">Pending</a></td>
+										</c:if>
+										<c:if test = "${loanAccount.status == 1}">
+											<td><a style="color: green;">Active</a></td>
+										</c:if> 
+										<c:if test = "${loanAccount.status == 2}">
+											<td><a style="color: blue;">Finished</a></td>
+										</c:if> 
+										<td><a href="<c:url value='/admin/loan-account'/>"><i class="fa fa-edit"></i></a></td>
+									</tr>
+								</c:forEach>								
 							</tbody>
 						</table>
 					</div>

@@ -17,9 +17,11 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
@@ -29,11 +31,11 @@ public class User {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@NotEmpty
+	@NotEmpty(message = "Please enter username")	
 	@Column(name = "username")
 	private String username;
 
-	@NotEmpty	
+	@NotBlank(message = "Please enter password")	
 	@Column(name = "password")
 	private String password;
 	
@@ -49,12 +51,12 @@ public class User {
 	@Column(name = "dob")
 	private Date dob;
 	
-	@NotEmpty
+	@NotEmpty(message = "Please enter email")
 	@Email
 	@Column(name = "email")
 	private String email;
 	
-	@NotEmpty
+	@NotBlank(message = "Please enter phone number")
 	@Column(name = "phone")
 	private String phone;
 	
@@ -67,8 +69,9 @@ public class User {
 	@Column(name = "address")
 	private String address;
 	
+	@NotNull(message = "Please enter salary")
 	@Column(name = "salary")
-	private Integer salary;
+	private Long salary;
 
 	//FK
 	@ManyToMany(fetch = FetchType.LAZY, cascade=CascadeType.ALL)
@@ -87,6 +90,9 @@ public class User {
 	
 	@OneToMany(mappedBy="user")
 	private List<Appointment> appointment = new ArrayList<>();
+	
+	@OneToMany(mappedBy="receiver")
+	private List<Transaction> transaction = new ArrayList<>();
 	
 
 	public Long getId() {
@@ -181,11 +187,11 @@ public class User {
 		this.address = address;
 	}
 
-	public Integer getSalary() {
+	public Long getSalary() {
 		return salary;
 	}
 
-	public void setSalary(Integer salary) {
+	public void setSalary(Long salary) {
 		this.salary = salary;
 	}
 
@@ -227,7 +233,23 @@ public class User {
 
 	public void setAppointment(List<Appointment> appointment) {
 		this.appointment = appointment;
-	}	
-	
-	
+	}
+
+	public List<Transaction> getTransaction() {
+		return transaction;
+	}
+
+	public void setTransaction(List<Transaction> transaction) {
+		this.transaction = transaction;
+	}
+
+	@Override
+	public String toString() {
+		return "User [id=" + id + ", username=" + username + ", password=" + password + ", firstName=" + firstName
+				+ ", lastName=" + lastName + ", gender=" + gender + ", dob=" + dob + ", email=" + email + ", phone="
+				+ phone + ", nationality=" + nationality + ", city=" + city + ", address=" + address + ", salary="
+				+ salary + ", roles=" + roles + ", currentAccounts=" + currentAccounts + ", savingAccounts="
+				+ savingAccounts + ", loanAccounts=" + loanAccounts + ", appointment=" + appointment + ", transaction="
+				+ transaction + "]";
+	}
 }

@@ -28,10 +28,10 @@
 <div class="content">
 	<div class="animated fadeIn">
 		<div class="row justify-content-center">
-			<div class="col-md-4">
+			<div class="col-md-5">
 				<div class="card">
 					<div class="card-header">
-						<strong class="card-title pl-2">Profile Card</strong>
+						<strong class="card-title pl-2">Profile</strong>
 					</div>
 					<div class="card-body">
 						<div class="mx-auto d-block">
@@ -49,27 +49,55 @@
 						</div>
 						<hr>
 						<div class="card-text text-sm mx-auto">
-							<div>
-								<label>Gender:&emsp;</label><a>${user.gender}</a>
+							<div class="row form-group">
+								<div class="col col-md-4">
+									<label>Gender</label>
+								</div>
+								<div class="col-12 col-md-8">
+									<a>${user.gender}</a>
+								</div>
 							</div>
-							<div>
-								<label>DOB:&emsp;</label><a>${user.dob}</a>
+							<div class="row form-group">
+								<div class="col col-md-4">
+									<label>Date of Birth</label>
+								</div>
+								<div class="col-12 col-md-8">
+									<a>${user.dob}</a>
+								</div>
 							</div>
-
-							<div>
-								<label>Email:&emsp;</label><a>${user.email}</a>
+							
+							<div class="row form-group">
+								<div class="col col-md-4">
+									<label>Email</label>
+								</div>
+								<div class="col-12 col-md-8">
+									<a>${user.email}</a>
+								</div>
 							</div>
-
-							<div>
-								<label>Phone:&emsp;</label><a>${user.phone}</a>
-							</div>
-							<div>
-								<label>Address:&emsp;</label><a>${user.address}</a>
-							</div>
-
-							<div>
-								<label>Salary:&emsp;</label><a>${user.salary}</a>
-							</div>
+							<div class="row form-group">
+								<div class="col col-md-4">
+									<label>Phone</label>
+								</div>
+								<div class="col-12 col-md-8">
+									<a>${user.phone}</a>
+								</div>
+							</div>	
+							<div class="row form-group">
+								<div class="col col-md-4">
+									<label>Address</label>
+								</div>
+								<div class="col-12 col-md-8">
+									<a>${user.address}</a>
+								</div>
+							</div>	
+							<div class="row form-group">
+								<div class="col col-md-4">
+									<label>Salary</label>
+								</div>
+								<div class="col-12 col-md-8">
+									<a>${user.salary}</a>
+								</div>
+							</div>	
 						</div>
 						<hr>
 						<a href="<c:url value='/admin/profile/edit'/>"><i class="fa fa-edit"></i> Edit Profile &emsp; &emsp; &emsp;</a> 

@@ -1,5 +1,6 @@
 package com.ebanking.controller.customer;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -15,6 +16,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -25,6 +27,7 @@ import com.ebanking.entity.InterestRate;
 import com.ebanking.entity.LoanAccount;
 import com.ebanking.entity.SavingAccount;
 import com.ebanking.entity.User;
+import com.ebanking.service.CurrentAccountService;
 import com.ebanking.service.LoanAccountService;
 import com.ebanking.service.SavingAccountService;
 import com.ebanking.service.UserService;
@@ -36,33 +39,59 @@ public class AccountController {
 	private UserService userService;
 	
 	@Autowired
+	private CurrentAccountService currentAccountService;
+	
+	@Autowired
 	private SavingAccountService savingAccountService;
 	
 	@Autowired
 	private LoanAccountService loanAccountService;
 
 	// ACCOUNT CONTROLLER
+	//CURRENT-ACCOUNT
 	@RequestMapping(value = "/customer/current-account", method = RequestMethod.GET)
 	public ModelAndView customerViewCurrentAccount(ModelMap modelMap) {
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		MyUser myUser = (MyUser) authentication.getPrincipal();
-		long userId = myUser.getUserId();
-		User user = userService.find(userId);
-
+		User user = userService.getCurrentUser();
 		CurrentAccount currentAccount = user.getCurrentAccounts();
+		
 		modelMap.put("currentAccount", currentAccount);
 		ModelAndView mav = new ModelAndView("customer/account/current-account");
 		return mav;
 	}
+	
+	@RequestMapping(value = "/customer/current-account/change-pincode", method = RequestMethod.GET)
+	public ModelAndView customerChangePINCODE(ModelMap modelMap) {
+		User user = userService.getCurrentUser();
+		CurrentAccount currentAccount = user.getCurrentAccounts();
+		modelMap.put("currentAccount", currentAccount);
+		ModelAndView mav = new ModelAndView("customer/account/change-pincode");
+		return mav;
+	}
+	
+	@RequestMapping(value = "/customer/current-account/change-pincode", method = RequestMethod.POST)
+	public String customerChangePINCODE(@Valid CurrentAccount currentAccount, BindingResult bindingResult, 
+			HttpServletRequest request) {
+		currentAccount = userService.getCurrentUser().getCurrentAccounts();
+		currentAccountService.changePinCode(currentAccount, request);
+		if( bindingResult.hasErrors()) {
+			return "customer/account/change-pincode";
+		}
+		currentAccountService.save(currentAccount);
+		return "redirect:/customer/current-account";
+	}
 
+	//SAVING-ACCOUNT
 	@RequestMapping(value = "/customer/saving-account", method = RequestMethod.GET)
 	public ModelAndView customerViewSavingAccount(ModelMap modelMap) {
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		MyUser myUser = (MyUser) authentication.getPrincipal();
-		long userId = myUser.getUserId();
-		User user = userService.find(userId);
-
-		List<SavingAccount> savingAccounts = user.getSavingAccounts();
+		User user = userService.getCurrentUser();
+		List<SavingAccount> allSavingAccounts = user.getSavingAccounts();
+		
+		List<SavingAccount> savingAccounts = new ArrayList<>();
+		for(SavingAccount savingAccount : allSavingAccounts) {
+			if (savingAccount.getStatus() == 1) {
+				savingAccounts.add(savingAccount);
+			}
+		}
 		modelMap.put("savingAccounts", savingAccounts);
 		ModelAndView mav = new ModelAndView("customer/account/saving-account-list");
 		return mav;
@@ -70,44 +99,45 @@ public class AccountController {
 
 	@RequestMapping(value = "/customer/saving-account/create", method = RequestMethod.GET)
 	public ModelAndView customerCreateSavingAccount(Map<String, Object> model) {
-		ModelAndView mav = new ModelAndView("customer/account/create-saving-account");
 		SavingAccount savingAccount = new SavingAccount();
 		model.put("savingAccount", savingAccount);
+		ModelAndView mav = new ModelAndView("customer/account/create-saving-account");
 		return mav;
 	}
 	
 	@RequestMapping(value = "/customer/saving-account/create", method = RequestMethod.POST)
-	public String customerCreateSavingAccount(@Valid SavingAccount savingAccount, BindingResult result, HttpServletRequest request) {
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		MyUser myUser = (MyUser)authentication.getPrincipal();
-		long userId = myUser.getUserId();
-		User user = userService.find(userId);
-		
-		InterestRate interestRate = new InterestRate();
-		Calendar calendar = Calendar.getInstance();
-		calendar.setTime(new Date());
-		calendar.add(Calendar.MONTH, Integer.parseInt(savingAccount.getTenor()));
-		
-		savingAccount.setAccNo((long)(Math.random() * 100000000 * 1000000)+"");
-		savingAccount.setTenor(request.getParameter("tenor"));
-		savingAccount.setUser(user);
-		savingAccount.setOpenDate(new Date());		
-		savingAccount.setCloseDate(calendar.getTime());
-		savingAccount.setDescription(request.getParameter("description"));
-		savingAccount.setInitialAmount(Integer.parseInt(request.getParameter("initialAmount")));
-		savingAccount.setPinCode(request.getParameter("pinCode"));
+	public String customerCreateSavingAccount(@Valid SavingAccount savingAccount, BindingResult bindingResult, 
+			HttpServletRequest request) {
+		User user = userService.getCurrentUser();
+		if( bindingResult.hasErrors()) {
+			return "customer/account/create-saving-account";
+		}
+		savingAccountService.createNewSavingAccount(savingAccount, user, request);
 		//savingAccountService.hash(savingAccount);
 		savingAccountService.save(savingAccount);		
 		return "redirect:/customer/saving-account";
 	}
 
+	/* 
+	 * @effects:
+	 * The Saving Account will not be delete
+	 * Change status from 1 to 0
+	 * Return back money to customer 
+	 */	
+	@RequestMapping(value = "/customer/saving-account/delete", method = RequestMethod.POST)
+	public String customerDeleteSavingAccount(HttpServletRequest request) {
+		long id = Long.parseLong(request.getParameter("id"));
+		SavingAccount savingAccount = savingAccountService.find(id);
+		savingAccountService.deactiveSavingAccount(savingAccount);
+		savingAccountService.save(savingAccount);
+		//TODO: do + money to account
+		return "redirect:/customer/saving-account";
+	}
+
+	//LOAN-ACCOUNT
 	@RequestMapping(value = "/customer/loan-account", method = RequestMethod.GET)
 	public ModelAndView customerViewLoanAccount(ModelMap modelMap) {
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		MyUser myUser = (MyUser) authentication.getPrincipal();
-		long userId = myUser.getUserId();
-		User user = userService.find(userId);
-
+		User user = userService.getCurrentUser();
 		List<LoanAccount> loanAccounts = user.getLoanAccounts();
 		modelMap.put("loanAccounts", loanAccounts);
 		ModelAndView mav = new ModelAndView("customer/account/loan-account-list");
@@ -116,35 +146,30 @@ public class AccountController {
 
 	@RequestMapping(value = "/customer/loan-account/create", method = RequestMethod.GET)
 	public ModelAndView customerCreateLoanAccount(Map<String, Object> model) {
-		ModelAndView mav = new ModelAndView("customer/account/create-loan-account");
 		LoanAccount loanAccount = new LoanAccount();
 		model.put("loanAccount", loanAccount);
+		ModelAndView mav = new ModelAndView("customer/account/create-loan-account");
 		return mav;
 	}
 	
 	@RequestMapping(value = "/customer/loan-account/create", method = RequestMethod.POST)
-	public String customerCreateLoanAccount(@Valid LoanAccount loanAccount, BindingResult result, HttpServletRequest request) {
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		MyUser myUser = (MyUser)authentication.getPrincipal();
-		long userId = myUser.getUserId();
-		User user = userService.find(userId);
-		
-		InterestRate interestRate = new InterestRate();
-		Calendar calendar = Calendar.getInstance();
-		calendar.setTime(new Date());
-		calendar.add(Calendar.MONTH, Integer.parseInt(loanAccount.getTenor()));
-		
-		loanAccount.setAccNo((long)(Math.random() * 100000000 * 1000000)+"");
-		loanAccount.setTenor(request.getParameter("tenor"));
-		loanAccount.setUser(user);
-		loanAccount.setOpenDate(new Date());		
-		loanAccount.setCloseDate(calendar.getTime());
-		loanAccount.setDescription(request.getParameter("description"));
-		loanAccount.setTotalAmount(Integer.parseInt(request.getParameter("totalAmount")));
-		loanAccount.setRemainAmount(loanAccount.getTotalAmount());
-		loanAccount.setPinCode(request.getParameter("pinCode"));
+	public String customerCreateLoanAccount(@Valid LoanAccount loanAccount, BindingResult bindingResult, 
+			HttpServletRequest request) {
+		User user = userService.getCurrentUser();
+		if( bindingResult.hasErrors()) {
+			return "customer/account/create-loan-account";
+		}
+		loanAccountService.createNewLoanAccount(loanAccount, user, request);
 		loanAccountService.save(loanAccount);		
 		return "redirect:/customer/loan-account";
+	}
+	
+	@RequestMapping(value = "/customer/loan-account/pay", method = RequestMethod.GET)
+	public ModelAndView customerPayLoanAccount(Map<String, Object> model) {
+		LoanAccount loanAccount = new LoanAccount();
+		model.put("loanAccount", loanAccount);
+		ModelAndView mav = new ModelAndView("customer/account/create-loan-account");
+		return mav;
 	}
 
 }

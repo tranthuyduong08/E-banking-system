@@ -42,7 +42,8 @@
 								</div>
 								<div class="col-12 col-md-6">
 									<form:input type="text" id="text-input" placeholder="Enter Tenor" path="tenor" 
-									class="form-control"/>									
+									class="form-control"/>		
+									<small class="form-text text-muted"><form:errors path="tenor" style="color:red;" cssClass="error"/></small>							
 								</div>
 							</div>
 							<div class="row form-group">
@@ -50,9 +51,9 @@
 									<label class=" form-control-label">Total Amount</label>
 								</div>
 								<div class="col-12 col-md-9">
-									<form:input type="text" placeholder="Enter Initial Amount" path="totalAmount" 
+									<form:input type="text" placeholder="Enter Total Amount" path="totalAmount" 
 									class="form-control"/>
-									<small class="form-text text-muted"><form:errors path="totalAmount" cssClass="error"/></small>
+									<small class="form-text text-muted"><form:errors path="totalAmount" style="color:red;" cssClass="error"/></small>
 								</div>
 							</div>							
 							<div class="row form-group">
@@ -67,8 +68,9 @@
 								<div class="col col-md-3">
 									<label for="text-input" class=" form-control-label">PINCODE</label>
 								</div>
-								<div class="col-12 col-md-4">
-									<form:password id="w3review" path="pinCode" rows="8" cols="30" class="form-control"/>
+								<div class="col-12 col-md-6">
+									<form:password id="w3review" path="pinCode" maxlength="4" class="form-control"/>
+									<small class="form-text text-muted"><form:errors path="pinCode" style="color:red;" cssClass="error"/></small>
 								</div>
 							</div>													
 							<hr>

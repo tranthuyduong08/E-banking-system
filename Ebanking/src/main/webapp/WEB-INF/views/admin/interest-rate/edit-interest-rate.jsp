@@ -7,7 +7,7 @@
 			<div class="col-sm-4">
 				<div class="page-header float-left">
 					<div class="page-title">
-						<h1>APPOINTMENT</h1>
+						<h1>SAVING ACCOUNT</h1>
 					</div>
 				</div>
 			</div>
@@ -15,55 +15,47 @@
 				<div class="page-header float-right">
 					<div class="page-title">
 						<ol class="breadcrumb text-right">
-							<li><a href="<c:url value='/customer'/>">Dashboard</a></li>
-							<li><a href="#">Appointment</a></li>
-							<li class="active">Create Appointment</li>
+							<li><a href="<c:url value='/admin'/>">Dashboard</a></li>
+							<li><a href="#">Interest Rate</a></li>
+							<li class="active">Edit Interest Rate</li>
 						</ol>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-</div> 
+</div>
 <div class="content">
 	<div class="animated fadeIn">
 		<div class="row justify-content-center">
 			<div class="col-lg-6">
 				<div class="card">
 					<div class="card-header">
-						<strong>Create</strong> New Appointment
+						<strong>Edit</strong> New Interest Rate
 					</div>
 					<div class="card-body card-block">
-						<c:url var="appointmentCreate" value='/customer/appointment/create'/>
-						<form:form action="${appointmentCreate}" method="post" commandName="appointment" class="form-horizontal">
+						<c:url var="editInterestRate" value='/admin/interest-rate/edit/${interestRate.id}'/>
+						<form:form action="${editInterestRate}" method="post" modelAttribute="interestRate" class="form-horizontal">
 							<div class="row form-group">
 								<div class="col col-md-3">
-									<label class=" form-control-label">Name</label>
+									<label class=" form-control-label">Type</label>
 								</div>
 								<div class="col-12 col-md-9">
-									<form:input type="text" placeholder="Enter Appointment Name" path="name" value="" 
+									<form:input type="text" placeholder="Enter Interest Rate Type" path="type" value = "${interestRate.type}"
 									class="form-control"/>
-									<small class="form-text text-muted"><form:errors path="name" style="color:red;" cssClass="error"/></small>
+									<small class="form-text text-muted"><form:errors path="type" style="color:red;" cssClass="error"/></small>
 								</div>
 							</div>
 							<div class="row form-group">
 								<div class="col col-md-3">
-									<label for="text-input" class=" form-control-label">Date</label>
+									<label for="text-input" class=" form-control-label">Interest Rate</label>
 								</div>
 								<div class="col-12 col-md-6">
-									<form:input type="datetime-local" id="text-input" placeholder="Enter Date" path="date" value=""
-									class="form-control"/>
-									<small class="form-text text-muted"><form:errors path="date" style="color:red;" cssClass="error"/></small>
+									<form:input type="text" id="text-input" placeholder="Enter Interest Rate" path="interestRate"  value = "${interestRate.interestRate}"
+									class="form-control"/>	
+									<small class="form-text text-muted"><form:errors path="interestRate" style="color:red;" cssClass="error"/></small>								
 								</div>
-							</div>
-							<div class="row form-group">
-								<div class="col col-md-3">
-									<label for="text-input" class=" form-control-label">Description</label>
-								</div>
-								<div class="col-12 col-md-9">
-									<form:textarea id="w3review" path="description" rows="8" cols="30" class="form-control"/>
-								</div>
-							</div>													
+							</div>																			
 							<hr>
 							<div class="">							
 								<button type="submit" class="btn btn-primary btn-sm">

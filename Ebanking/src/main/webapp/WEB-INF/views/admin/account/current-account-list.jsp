@@ -38,25 +38,32 @@
 							class="table table-striped table-bordered">
 							<thead>
 								<tr>
+									<th>#</th>
 									<th>Account Number</th>
 									<th>Card Number</th>
 									<th>Customer Name</th>
 									<th>Open Date</th>
-									<th>Balance</th>
-									<th></th>
-									<th></th>
+									<th>Status</th>
+									<th>Detail</th>
 								</tr>
 							</thead>
 							<tbody>
-								<tr>
-									<td>Tiger Nixon</td>
-									<td>System Architect</td>
-									<td>Edinburgh</td>
-									<td>25/8/2020</td>
-									<td>$320,800</td>
-									<td><a href="<c:url value='/admin/current-account'/>"><i class="fa fa-edit"></i></a></td>
-									<td></td>
-								</tr>								
+								<c:forEach var="currentAccount" items="${currentAccount}" varStatus="i">
+									<tr>
+										<td>${i.index +1 }</td>
+										<td>${currentAccount.accNo}</td>
+										<td>${currentAccount.cardNo}</td>
+										<td>${currentAccount.user.firstName} ${currentAccount.user.lastName}</td>
+										<td>${currentAccount.openDate}</td>
+										<c:if test = "${currentAccount.status == 0}">
+											<td><a style="color: red;"><i class="fa fa-times"></i> Disable</a></td>
+										</c:if>
+										<c:if test = "${currentAccount.status == 1}">
+											<td><a style="color: green;"><i class="fa fa-check"></i> Enable</a></td>
+										</c:if> 
+										<td><a href="<c:url value='/admin/current-account'/>"><i class="fa fa-list"></i></a></td>
+									</tr>
+								</c:forEach>								
 							</tbody>
 						</table>
 					</div>
