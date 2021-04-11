@@ -1,5 +1,7 @@
 package com.ebanking.service.impl;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,7 +14,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.ebanking.dto.MyUser;
+import com.ebanking.entity.LoanAccount;
 import com.ebanking.entity.Role;
+import com.ebanking.entity.SavingAccount;
 import com.ebanking.entity.User;
 import com.ebanking.service.UserService;
 import com.ebanking.repository.CurrentAccountRepository;
@@ -100,9 +104,21 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public int countAccount() {
+	public int countAccount(List<User> users) {
 		long count = 0;
-		count = currentAccountRepository.count() + savingAccountRepository.count() + loanAccountRepository.count();
+		for (User user : users) {
+			if (user.getCurrentAccounts() != null) {
+				count += 1;
+			}
+			if (user.getSavingAccounts() != null) {
+				count+= user.getSavingAccounts().size();
+				
+			}
+			if (user.getLoanAccounts() != null) {				
+				count+= user.getLoanAccounts().size();
+			}
+		}	
+//		count = currentAccountRepository.count() + savingAccountRepository.count() + loanAccountRepository.count();
 		return (int) count;
 	}
 
@@ -117,7 +133,6 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public void editProfile(User user, HttpServletRequest request) {
-		user.setDob(user.getDob());
 		user.setEmail(request.getParameter("email"));
 		user.setPhone(request.getParameter("phone"));	
 	}
@@ -135,6 +150,23 @@ public class UserServiceImpl implements UserService {
 		user.setCity(request.getParameter("city"));
 		user.setAddress(request.getParameter("address"));
 		user.setSalary(Long.parseLong(request.getParameter("salary")));
+	}
+
+	@Override
+	public void createNewUser(User user, HttpServletRequest request) throws ParseException {
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+		user.setFirstName(request.getParameter("firstName").trim());
+		user.setLastName(request.getParameter("lastName").trim());
+		user.setGender(request.getParameter("gender").trim());
+		user.setDob(format.parse(request.getParameter("dob")));
+		user.setPhone(request.getParameter("phone").trim());
+		user.setEmail(request.getParameter("email").trim());
+		user.setNationality(request.getParameter("nationality").trim());
+		user.setCity(request.getParameter("city").trim());
+		user.setAddress(request.getParameter("address").trim());
+		user.setSalary(Long.parseLong(request.getParameter("salary").trim()));
+		user.setUsername(request.getParameter("username").trim());
+		user.setPassword(request.getParameter("password").trim());
 	}
 
 }

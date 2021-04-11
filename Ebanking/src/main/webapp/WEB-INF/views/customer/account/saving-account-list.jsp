@@ -15,7 +15,7 @@
 				<div class="page-header float-right">
 					<div class="page-title">
 						<ol class="breadcrumb text-right">
-							<li><a href="<c:url value='/admin'/>">Dashboard</a></li>
+							<li><a href="<c:url value='/customer'/>">Dashboard</a></li>
 							<li><a href="#">Account</a></li>
 							<li class="active">Saving Account</li>
 						</ol>
@@ -51,7 +51,7 @@
 							<tbody>								
 								<c:forEach var="savingAccounts" items="${savingAccounts}" varStatus="i">
 									<tr>
-										<td>${i.index +1 }</td>
+										<td>${i.index +1}</td>
 										<td>${savingAccounts.accNo}</td>
 										<td>${savingAccounts.tenor}</td>
 										<td>${savingAccounts.initialAmount}</td>

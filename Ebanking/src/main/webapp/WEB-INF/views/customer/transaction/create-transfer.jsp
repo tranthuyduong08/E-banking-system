@@ -38,7 +38,7 @@
 							<div class="stat-content">
 								<div class="text-left dib">
 									<div class="stat-text">
-										<span class="count">2986</span>
+										<span class="count">${totalAmount}</span> VND
 									</div>
 									<div class="stat-heading">										
 										<div class="stat-heading">Total Balance</div>
@@ -84,7 +84,6 @@
 											<div class="col-12 col-md-8">
 												<input type="text" id="text-input" placeholder="Enter Customer Name" name="firstname" value="${user.firstName}"
 												class="form-control">
-												<small class="form-text text-muted">This is a help text</small>
 											</div>
 										</div>
 										<div class="row form-group">
@@ -103,7 +102,6 @@
 											<div class="col-12 col-md-8">
 												<input type="text" id="text-input" placeholder="Enter Customer Name" name="firstname" value="${user.firstName}"
 												class="form-control">
-												<small class="form-text text-muted">This is a help text</small>
 											</div>
 										</div>
 										<div class="row form-group">
@@ -161,7 +159,6 @@
 											<div class="col-12 col-md-8">
 												<input type="text" id="text-input" placeholder="Enter Customer Name" name="firstname" value="${user.firstName}"
 												class="form-control">
-												<small class="form-text text-muted">This is a help text</small>
 											</div>
 										</div>
 										<div class="row form-group">
@@ -180,7 +177,6 @@
 											<div class="col-12 col-md-8">
 												<input type="text" id="text-input" placeholder="Enter Customer Name" name="firstname" value="${user.firstName}"
 												class="form-control">
-												<small class="form-text text-muted">This is a help text</small>
 											</div>
 										</div>
 										<div class="row form-group">

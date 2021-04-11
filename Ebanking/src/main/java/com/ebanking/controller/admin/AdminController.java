@@ -9,8 +9,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -26,7 +24,6 @@ import com.ebanking.service.LoanAccountService;
 import com.ebanking.service.SavingAccountService;
 import com.ebanking.service.TransactionService;
 import com.ebanking.service.UserService;
-import com.ebanking.dto.MyUser;
 import com.ebanking.entity.Appointment;
 import com.ebanking.entity.CurrentAccount;
 import com.ebanking.entity.LoanAccount;
@@ -80,50 +77,11 @@ public class AdminController {
 		return mav;
 	}
 	
-// PROFILE CONTROLLER
-	@RequestMapping(value = "/admin/profile", method = RequestMethod.GET)
-	public ModelAndView adminProfile(ModelMap modelMap) {
-		User user = userService.getCurrentUser();
-		 
-		ModelAndView mav = new ModelAndView("admin/profile/profile");
-		modelMap.addAttribute("user", user);
-		return mav;
-	}
-	
-	@RequestMapping(value = "/admin/profile/edit", method = RequestMethod.GET)
-	public ModelAndView adminEditProfile(ModelMap modelMap) {
-		User user = userService.getCurrentUser();
-		
-		ModelAndView mav = new ModelAndView("admin/profile/edit-profile");
-		modelMap.addAttribute("user", user);
-		return mav;
-	}
-	
-	@RequestMapping(value = "/admin/profile/edit", method = RequestMethod.POST)
-	public String adminEditProfile(HttpServletRequest request){
-		User user = userService.getCurrentUser();
-		
-		user.setEmail(request.getParameter("email").trim());
-		user.setPhone(request.getParameter("phone").trim());		
-		userService.save(user);
-		
-		return "redirect:/admin/profile";
-	}
-	
-	@RequestMapping(value = "/admin/profile/change-password", method = RequestMethod.GET)
-	public ModelAndView adminChangePassword(ModelMap modelMap) {
-		User user = userService.getCurrentUser();
-		
-		ModelAndView mav = new ModelAndView("admin/profile/change-password");
-		modelMap.addAttribute("user", user);
-		return mav;
-	}
-	
 // CUSTOMER CONTROLLER
 	@RequestMapping(value = "/admin/customer", method = RequestMethod.GET)
 	public ModelAndView adminViewCustomer(ModelMap modelMap) {
 		modelMap.put("user", userService.findAll());
-		modelMap.addAttribute("accountNo", userService.countAccount());
+		modelMap.addAttribute("accountNo", userService.countAccount(userService.findAll()));
 		ModelAndView mav = new ModelAndView("admin/customer/customer-list");
 		return mav;
 	}
@@ -170,7 +128,7 @@ public class AdminController {
 	@RequestMapping(value = "/admin/customer/edit/{id}", method = RequestMethod.POST)
 	public String adminEditCustomer(@PathVariable("id") Long id, @Valid User user, BindingResult result, HttpServletRequest request) throws ParseException {
 		user = userService.find(id);
-		SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 		
 		user.setFirstName(request.getParameter("firstName"));
 		user.setLastName(request.getParameter("lastName"));
@@ -187,10 +145,17 @@ public class AdminController {
 		return "redirect:/admin/customer";
 	}
 
-	@RequestMapping(value = "/admin/customer/delete/{id}", method = RequestMethod.POST)
+	@RequestMapping(value = "/admin/customer/delete/{id}", method = RequestMethod.GET)
 	public String adminDeleteCustomer(@PathVariable("id") Long id) {
 		userService.delete(id);
 		return "redirect:/admin/customer";
 	}
-
+	
+	@RequestMapping(value = "/admin/customer/detail/{id}", method = RequestMethod.GET)
+	public ModelAndView adminViewCustomerDetail(@PathVariable("id") long id, ModelMap modelMap) {
+		User user = userService.find(id);
+		modelMap.addAttribute("user", user);
+		ModelAndView mav = new ModelAndView("admin/customer/customer-detail");
+		return mav;
+	}
 }

@@ -42,16 +42,24 @@ public class HomeController {
 		
 		// Get total Current Amount
 		CurrentAccount currentAccount = user.getCurrentAccounts();
-		modelMap.addAttribute("totalAmount", currentAccount.getBalance());
+		if (currentAccount != null) {
+			modelMap.addAttribute("totalAmount", currentAccount.getBalance());
+		} else {
+			modelMap.addAttribute("totalAmount", 0);
+		}
 		modelMap.put("currentAccount", currentAccount);
 		
 		// Get total Saving Amount
 		List<SavingAccount> savingAccount = user.getSavingAccounts();
-		int totalSavingBalance = 0;
-		for(SavingAccount sA : savingAccount) {
-			totalSavingBalance += sA.getInitialAmount();
+		if (savingAccount != null) {
+			int totalSavingBalance = 0;
+			for(SavingAccount sA : savingAccount) {
+				totalSavingBalance += sA.getInitialAmount();
+			}
+			modelMap.addAttribute("totalSavingBalance", totalSavingBalance);
+		} else {
+			modelMap.addAttribute("totalSavingBalance", 0);
 		}
-		modelMap.addAttribute("totalSavingBalance", totalSavingBalance);
 		//Iterate account management
 		int savingAccCount = savingAccount.size();
 		modelMap.put("savingAccCount", savingAccCount);
@@ -59,15 +67,21 @@ public class HomeController {
 		// Get total remain Loan Amount
 		List<LoanAccount> loanAccount = user.getLoanAccounts();
 		int totalLoanBalance = 0;
-		for(LoanAccount lA : loanAccount) {
-			totalLoanBalance += lA.getRemainAmount();
+		if (savingAccount != null) {
+			for(LoanAccount lA : loanAccount) {
+				totalLoanBalance += lA.getRemainAmount();
+			}
 		}
 		modelMap.addAttribute("totalLoanBalance", totalLoanBalance);
+			
 		
 		// Get total Transaction time 
 		List<Transaction> transactions = user.getTransaction();
-		modelMap.addAttribute("totalTransactionTime", transactions.size());
-
+		if (transactions != null) {
+			modelMap.addAttribute("totalTransactionTime", transactions.size());
+		} else {
+			modelMap.addAttribute("totalTransactionTime", 0);
+		}
 		ModelAndView mav = new ModelAndView("customer/home");
 		return mav;
 	}

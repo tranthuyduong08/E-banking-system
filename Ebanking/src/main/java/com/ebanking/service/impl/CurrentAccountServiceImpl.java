@@ -12,9 +12,11 @@ import org.springframework.stereotype.Service;
 
 import com.ebanking.dto.MyUser;
 import com.ebanking.entity.CurrentAccount;
+import com.ebanking.entity.InterestRate;
 import com.ebanking.entity.Transaction;
 import com.ebanking.entity.User;
 import com.ebanking.repository.CurrentAccountRepository;
+import com.ebanking.repository.InterestRateRepository;
 import com.ebanking.service.CurrentAccountService;
 import com.ebanking.service.TransactionService;
 import com.ebanking.service.UserService;
@@ -27,6 +29,9 @@ public class CurrentAccountServiceImpl implements CurrentAccountService {
 	
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	private InterestRateRepository interestRateRepository;
 	
 	@Autowired
 	private TransactionService transactionService;
@@ -75,9 +80,17 @@ public class CurrentAccountServiceImpl implements CurrentAccountService {
 	}
 
 	@Override
-	public CurrentAccount createNewCurrentAccount() {
-		// TODO Auto-generated method stub
-		return null;
+	public CurrentAccount createNewCurrentAccount(User user) {
+		InterestRate interestRate = interestRateRepository.findOne((long)1);
+		CurrentAccount currentAccount = new CurrentAccount();
+		currentAccount.setAccNo((long)(Math.random() * 1000000 * 1000000)+"");
+		currentAccount.setCardNo((long)(Math.random() * 1000000000 * 10000000)+"");
+		currentAccount.setUser(user);
+		currentAccount.setInterestRate(interestRate);
+		currentAccount.setStatus(1);
+		currentAccount.setBalance(0);
+		currentAccount.setOpenDate(new Date());		
+		return currentAccount;
 	}
 
 	@Override

@@ -47,9 +47,6 @@ public class ProfileController {
 		@RequestMapping(value = "/customer/profile/edit", method = RequestMethod.POST)
 		public String customerEditProfile(@Valid User user, BindingResult bindingResult, HttpServletRequest request){
 			user = userService.getCurrentUser();
-			if( bindingResult.hasErrors()) {
-				return "customer/profile/edit-profile";
-			}
 			userService.editProfile(user, request);
 			userService.save(user);
 			return "redirect:/customer/profile";
@@ -68,13 +65,9 @@ public class ProfileController {
 		@RequestMapping(value = "/customer/profile/change-password", method = RequestMethod.POST)
 		public String customerChangePassword(@Valid User user, BindingResult bindingResult, HttpServletRequest request){
 			user = userService.getCurrentUser();
-			if( bindingResult.hasErrors()) {
-				return "customer/profile/change-password";
-			}
 			user.setPassword(request.getParameter("password"));
 			userService.hash(user);	
 			userService.save(user);
 			return "redirect:/customer/profile";
 		}
-
 }

@@ -47,7 +47,7 @@ public class TransactionController {
 	public ModelAndView customerViewDeposit(ModelMap modelMap) {
 		User user = userService.getCurrentUser();		
 		List<Transaction> transactions = transactionService.getCurrentUserDeposit(user);
-		modelMap.put("transaction", transactions);
+			modelMap.put("transaction", transactions);
 		ModelAndView mav = new ModelAndView("customer/transaction/deposit-list");
 		return mav;
 	}
@@ -57,7 +57,11 @@ public class TransactionController {
 		User user = userService.getCurrentUser();
 
 		CurrentAccount currentAccount = user.getCurrentAccounts();
-		modelMap.addAttribute("totalAmount", currentAccount.getBalance());
+		if (currentAccount != null) {
+			modelMap.addAttribute("totalAmount", currentAccount.getBalance());
+		} else {
+			modelMap.addAttribute("totalAmount", 0);
+		}
 		
 		List<Transaction> transactions = transactionService.getCurrentUserDeposit(user);
 		modelMap.addAttribute("depositTime", transactions.size());
@@ -98,7 +102,11 @@ public class TransactionController {
 		User user = userService.getCurrentUser();
 
 		CurrentAccount currentAccount = user.getCurrentAccounts();
-		modelMap.addAttribute("totalAmount", currentAccount.getBalance());
+		if (currentAccount != null) {
+			modelMap.addAttribute("totalAmount", currentAccount.getBalance());
+		} else {
+			modelMap.addAttribute("totalAmount", 0);
+		}
 		
 		List<Transaction> transactions = transactionService.getCurrentUserWithdraw(user);
 		modelMap.addAttribute("withdrawTime", transactions.size());
@@ -124,7 +132,16 @@ public class TransactionController {
 
 	//TRANSFER
 	@RequestMapping(value = "/customer/transaction/transfer", method = RequestMethod.GET)
-	public ModelAndView customerViewTransfer() {
+	public ModelAndView customerViewTransfer(ModelMap modelMap, Map<String, Object> model) {
+		User user = userService.getCurrentUser();
+		
+		CurrentAccount currentAccount = user.getCurrentAccounts();
+		if (currentAccount != null) {
+			modelMap.addAttribute("totalAmount", currentAccount.getBalance());
+		} else {
+			modelMap.addAttribute("totalAmount", 0);
+		}
+		
 		ModelAndView mav = new ModelAndView("customer/transaction/create-transfer");
 		return mav;
 	}

@@ -16,7 +16,7 @@ public interface CurrentAccountService {
 
 	public void delete(long id);
 	
-	public CurrentAccount createNewCurrentAccount();
+	public CurrentAccount createNewCurrentAccount(User user);
 	
 	public void deposit(int amount, User user, HttpServletRequest request);
 	

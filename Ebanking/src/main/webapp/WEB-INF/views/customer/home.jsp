@@ -31,8 +31,8 @@
 							</div>
 							<div class="stat-content">
 								<div class="text-left dib">
-									<div class="stat-text">
-										<span class="count">${totalAmount}</span>VND
+									<div class="stat-text">										
+										<span class="count">${totalAmount}</span>VND										
 									</div>
 									<div class="stat-heading">										
 										<div class="stat-heading">Total Balance</div>
