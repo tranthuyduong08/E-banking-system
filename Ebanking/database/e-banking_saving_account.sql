@@ -33,12 +33,13 @@ CREATE TABLE `saving_account` (
   `saving_user_id` bigint(20) DEFAULT NULL,
   `accNo` varchar(255) DEFAULT NULL,
   `pincode` int(11) DEFAULT NULL,
+  `status` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `FK_nsefqefcpb77bjxr2rvfyl0vq` (`saving_interest_id`),
   KEY `FK_k4vsc86toluqpgie5y4npaawm` (`saving_user_id`),
   CONSTRAINT `FK_k4vsc86toluqpgie5y4npaawm` FOREIGN KEY (`saving_user_id`) REFERENCES `user` (`id`),
   CONSTRAINT `FK_nsefqefcpb77bjxr2rvfyl0vq` FOREIGN KEY (`saving_interest_id`) REFERENCES `interest_rate` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -47,7 +48,7 @@ CREATE TABLE `saving_account` (
 
 LOCK TABLES `saving_account` WRITE;
 /*!40000 ALTER TABLE `saving_account` DISABLE KEYS */;
-INSERT INTO `saving_account` VALUES (8,'2021-09-21 20:38:02','',20000000,'2021-03-21 20:38:02','6',NULL,2,'89443904041091',2607),(11,'2022-03-21 20:40:36','',23000000,'2021-03-21 20:40:36','12',NULL,2,'63767502905152',1234);
+INSERT INTO `saving_account` VALUES (8,'2021-09-21 20:38:02','',20000000,'2021-03-21 20:38:02','6',NULL,2,'89443904041091',2607,1),(11,'2022-03-21 20:40:36','',23000000,'2021-03-21 20:40:36','12',NULL,2,'63767502905152',1234,1),(17,'2021-04-10 08:01:05','test',20000000,'2021-04-09 22:02:38','6',NULL,2,'45077217513776',1234,0),(19,'2022-04-09 22:10:31','testtttt',23000000,'2021-04-09 22:10:31','12',NULL,2,'67482073047169',1234,0),(20,'2022-04-10 01:28:59','test',20000000,'2021-04-10 01:28:59','12',NULL,2,'75832764210365',123456,0);
 /*!40000 ALTER TABLE `saving_account` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -60,4 +61,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-03-21 21:58:12
+-- Dump completed on 2021-04-11 10:11:16

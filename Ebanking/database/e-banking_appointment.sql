@@ -28,10 +28,11 @@ CREATE TABLE `appointment` (
   `description` varchar(255) DEFAULT NULL,
   `name` varchar(255) DEFAULT NULL,
   `user_id` bigint(20) DEFAULT NULL,
+  `status` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `FK_ocj7ys3racy36d4tdauqvvqp2` (`user_id`),
   CONSTRAINT `FK_ocj7ys3racy36d4tdauqvvqp2` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -40,7 +41,7 @@ CREATE TABLE `appointment` (
 
 LOCK TABLES `appointment` WRITE;
 /*!40000 ALTER TABLE `appointment` DISABLE KEYS */;
-INSERT INTO `appointment` VALUES (5,'2021-03-21 15:27:00','','Make an insurance contract',2),(6,'2021-03-26 11:35:00','ABC','Cancel Saving Account',2);
+INSERT INTO `appointment` VALUES (5,'2021-03-21 15:27:00','','Make an insurance contract',2,0),(13,'2021-04-08 10:03:00','Test','ABC',12,0);
 /*!40000 ALTER TABLE `appointment` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -53,4 +54,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-03-21 21:58:11
+-- Dump completed on 2021-04-11 10:11:14

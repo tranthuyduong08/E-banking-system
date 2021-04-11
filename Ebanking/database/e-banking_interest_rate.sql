@@ -24,11 +24,10 @@ DROP TABLE IF EXISTS `interest_rate`;
  SET character_set_client = utf8mb4 ;
 CREATE TABLE `interest_rate` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `amount` int(11) DEFAULT NULL,
-  `interestRate` int(11) DEFAULT NULL,
+  `interestRate` double DEFAULT NULL,
   `type` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -37,6 +36,7 @@ CREATE TABLE `interest_rate` (
 
 LOCK TABLES `interest_rate` WRITE;
 /*!40000 ALTER TABLE `interest_rate` DISABLE KEYS */;
+INSERT INTO `interest_rate` VALUES (1,0.3,'Primary Account'),(3,0.1,'Saving Account'),(4,0.2,'Loan Account');
 /*!40000 ALTER TABLE `interest_rate` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -49,4 +49,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-03-21 21:58:11
+-- Dump completed on 2021-04-11 10:11:14

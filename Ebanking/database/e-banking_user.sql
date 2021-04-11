@@ -46,7 +46,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (1,'Bac Tu Liem','Ha Noi','2000-12-07 00:00:00','ntduong712@gmail.com','Thuy Duong','Female','Nguyen','Viet Nam','$2a$10$/RUbuT9KIqk6f8enaTQiLOXzhnUkiwEJRdtzdrMXXwU7dgnLKTCYG','0965503476',5000000,'ntduong0712'),(2,'Bac Tu Liem','Ha Noi','2012-07-26 00:00:00','daibeodeptrai2607@gmail.com','Xuan Dai','Male','Nguyen','Viet Nam','$2a$10$/RUbuT9KIqk6f8enaTQiLOXzhnUkiwEJRdtzdrMXXwU7dgnLKTCYG','0379695788',10000000,'daimiu2607'),(12,'Bac Tu Liem','Ha Noi','2012-09-21 00:00:00','giangloli@gmail.com','Giang','Female','Nguyen','Viet Nam','$2a$10$eNMfr9rp4r8MXkIxcm2xzeDvB6mbabM3MZP/t2/Pt7.vziQe698VW','0965135154',15000000,'giangloli');
+INSERT INTO `user` VALUES (1,'Bac Tu Liem','Ha Noi','2000-12-07 00:00:00','ntduong712@gmail.com','Thuy Duong','Female','Nguyen','Viet Nam','$2a$10$/RUbuT9KIqk6f8enaTQiLOXzhnUkiwEJRdtzdrMXXwU7dgnLKTCYG','0965503476',5000000,'ntduong0712'),(2,'Bac Tu Liem','Ha Noi','2012-07-26 00:00:00','daibeodeptrai2607@gmail.com','Xuan Dai','Male','Nguyen','Viet Nam','$2a$10$DG/WTiR1CK/Uif9EEaDf.OeKc0sLK6fYudgmock9fv5jFAQKG3NfO','0379695787',10000000,'daimiu2607'),(12,'Bac Tu Liem','Ha Noi','2012-09-21 00:00:00','giangloli@gmail.com','Giang','Female','Nguyen','Viet Nam','$2a$10$kdhQgT0oMjKbaPm80Jk44.T5dIXaHNu0klpIPpLGtG6nBYuHDq.QW','0965135155',15000000,'giangloli');
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -59,4 +59,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-03-21 21:58:12
+-- Dump completed on 2021-04-11 10:11:15

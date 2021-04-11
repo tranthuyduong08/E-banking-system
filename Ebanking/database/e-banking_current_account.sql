@@ -31,12 +31,13 @@ CREATE TABLE `current_account` (
   `current_interest_id` bigint(20) DEFAULT NULL,
   `current_user_id` bigint(20) DEFAULT NULL,
   `pincode` int(11) DEFAULT NULL,
+  `status` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `FK_9vaaftej2i3scvq70lswlrbcd` (`current_interest_id`),
   KEY `FK_849smf9wajwwxxqsr4v131aub` (`current_user_id`),
   CONSTRAINT `FK_849smf9wajwwxxqsr4v131aub` FOREIGN KEY (`current_user_id`) REFERENCES `user` (`id`),
   CONSTRAINT `FK_9vaaftej2i3scvq70lswlrbcd` FOREIGN KEY (`current_interest_id`) REFERENCES `interest_rate` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -45,7 +46,7 @@ CREATE TABLE `current_account` (
 
 LOCK TABLES `current_account` WRITE;
 /*!40000 ALTER TABLE `current_account` DISABLE KEYS */;
-INSERT INTO `current_account` VALUES (1,'134537869537',5130000,'4451527205185425','2021-03-21 14:54:57',NULL,2,NULL),(2,'579404981171',3000000,'8868849926942529','2021-03-21 14:54:57',NULL,12,NULL);
+INSERT INTO `current_account` VALUES (1,'134537869537',6544000,'4451527205185425','2021-03-21 14:54:57',NULL,2,2607,1),(2,'579404981171',4200000,'8868849926942529','2021-03-21 14:54:57',NULL,12,2809,1);
 /*!40000 ALTER TABLE `current_account` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -58,4 +59,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-03-21 21:58:11
+-- Dump completed on 2021-04-11 10:11:15
