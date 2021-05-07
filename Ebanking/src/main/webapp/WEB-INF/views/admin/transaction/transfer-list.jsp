@@ -38,8 +38,8 @@
 							class="table table-striped table-bordered">
 							<thead>
 								<tr>
+									<th>#</th>
 									<th>Account Number</th>
-									<th>Type</th>
 									<th>Customer</th>
 									<th>Receiver</th>
 									<th>Amount</th>
@@ -48,15 +48,17 @@
 								</tr>
 							</thead>
 							<tbody>
-								<tr>
-									<td>1234567890</td>
-									<td>Same bank</td>
-									<td>Xuan Dai Nguyen</td>
-									<td>Giang Nguyen</td>
-									<td>$320,800</td>
-									<td>28/8/2020</td>
-									<td>ABC</td>
-								</tr>
+								<c:forEach var="transfer" items="${transfer}" varStatus="i">
+									<tr>
+										<td>${i.index +1 }</td>
+										<td>${transfer.currentAccount.accNo}</td>
+										<td>${transfer.currentAccount.user.firstName} ${transfer.currentAccount.user.lastName}</td>
+										<td>${transfer.receiver.firstName} ${transfer.receiver.lastName}</td>
+										<td>${transfer.amount}</td>
+										<td>${transfer.date}</td>	
+										<td>${transfer.description}</td>																								 
+									</tr>
+								</c:forEach>								
 							</tbody>
 						</table>
 					</div>

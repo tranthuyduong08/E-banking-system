@@ -52,8 +52,14 @@ public class TransactionServiceImpl implements TransactionService{
 
 	@Override
 	public List<Transaction> findAllTransfer() {
-		// TODO Auto-generated method stub
-		return null;
+		List<Transaction> allTransactions = findAll();
+		List<Transaction> transferTransactions = new ArrayList<>();
+		for(Transaction transaction : allTransactions) {
+			if(transaction.getType().equals("Transfer")) {
+				transferTransactions.add(transaction);
+			}
+		}
+		return transferTransactions;
 	}
 	
 	@Override

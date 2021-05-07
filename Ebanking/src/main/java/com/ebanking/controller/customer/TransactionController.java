@@ -177,7 +177,7 @@ public class TransactionController {
 		transactionService.createTransfer(transaction, user, receiver, request);
 		currentAccountService.transfer(user, receiver, transaction, request);
 		transactionService.save(transaction);
-		return "redirect:/customer/transaction/transfer";
+		return "redirect:/customer/transaction/transfer/history";
 	}
 
 	@RequestMapping(value = "/customer/transaction/transfer/other-bank", method = RequestMethod.GET)

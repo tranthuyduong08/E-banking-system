@@ -63,7 +63,8 @@ public class TransactionController {
 		}
 		
 		@RequestMapping(value = "/admin/transaction/transfer", method = RequestMethod.GET)
-		public ModelAndView adminViewTransfer() {
+		public ModelAndView adminViewTransfer(ModelMap modelMap) {
+			modelMap.put("transfer", transactionService.findAllTransfer());
 			ModelAndView mav = new ModelAndView("admin/transaction/transfer-list");
 			return mav;
 		}
