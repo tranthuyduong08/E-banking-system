@@ -44,10 +44,7 @@
                      <ul>
                         <li><a href="#"><span class="fab fa-facebook-f"></span></a></li>
                         <li><a href="#"><span class="fas fa-envelope"></span></a></li>
-                        <li><a href="#"><span class="fas fa-rss"></span></a></li>
-                        <li><a href="#"><span class="fab fa-vk"></span></a></li>
                         <li><a href="#"><span class="fab fa-twitter"></span></a></li>
-                        <li><a href="#"><span class="fab fa-pinterest-p"></span></a></li>
                      </ul>
                   </div>
                   <div class="col-lg-6 col-md-7 col-sm-7 info-contact-agile">
@@ -58,7 +55,7 @@
                         </li>
                         <li>
                            <span class="fas fa-envelope"></span>
-                           <p><a href="mailto:info@example.com">info@example1.com</a></p>
+                           <p><a href="mailto:info@example.com">group2ebanking@gmail.com</a></p>
                         </li>
                         <li>
                         </li>
@@ -152,9 +149,9 @@
       <!-- //banner -->
       <!-- About-one -->
       <section class="about py-lg-4 py-md-3 py-sm-3 py-3" id="about">
-         <div class="container-fluid py-lg-5 py-md-5 py-sm-4 py-3">
+         <div class="container py-lg-5 py-md-5 py-sm-4 py-3">
             <div class="title-sub text-left mb-lg-5 mb-md-4 mb-sm-4 mb-3">
-               <h3 class="title mb-md-4 mb-sm-3 mb-3">What We Can</h3>
+               <h3 class="title mb-md-4 mb-sm-3 mb-3">Scope</h3>
                <p>Our mission is to offer most effective banking & finance<br> solutions to our customers, especially the young and active segment.<br>
                    Based on our advanced technological infrastructure and specialized management, E-Banking has always been pioneering in setting trends in modern banking services, aiming to become the leading digital bank in Vietnam. </p>
             </div>
@@ -164,10 +161,10 @@
                </div>
                <div class="col-lg-5 agile-abt-info about-grid">
                   <div class="info-sub-w3">
+                  	<h4>SAVINGS</h4>
                      <h5>Regular Term Savings - Interest Paid Periodically
                      </h5>
-                  </div>
-                  <h4>SAVINGS</h4>
+                  </div>           
                   <div class="info-sub-w3">
                      <p>You can make wise savings decisions with E-Banking's fixed term savings accounts.
                          Lock your money in a secure savings account that will earn some of the highest 
@@ -183,10 +180,10 @@
             <div class="row abt-colm my-lg-5 my-md-4 my-3">
                <div class="offset-md-2 col-lg-5 agile-abt-info text-right">
                   <div class="info-sub-w3">
+                  	<h4>Loan</h4>
                      <h5>We offer some of the lowest rates compared to other banks
                      </h5>
-                  </div>
-                  <h4>Loan</h4>
+                  </div>                  
                   <div class="info-sub-w3">
                      <p>Are you in need of a loan to expand your business or start a business today? 
                         E-Banking supports your business plan quickly, simple procedures with flexible incentives 
@@ -206,10 +203,10 @@
                </div>
                <div class="col-lg-5 agile-abt-info about-grid">
                   <div class="info-sub-w3">
-                     <h5>Online Deposit is a type of deposit transaction in which corporate customer places and 
-                        performs deposit transaction through Internet Banking provided by E-Banking
-                  </div>
-                  <h4>Deposit</h4>
+                  	<h4>Deposit</h4>
+                     <h5>We corporate customer places and 
+                        performs deposit transaction through E-Banking </h5>
+                  </div>                  
                   <div class="info-sub-w3">
                      <p>Deposit shall be made and terminated systematically, physical visit at the Bank’s counter is not necessary.
                         Flexible deposit tenor. High deposit interest rate
@@ -230,33 +227,33 @@
                <div class="row stats-info">
                   <div class="col-md-3 col-sm-6 col-6 stats-grid-1">
                      <div class=" stats-grid">
-                        <div class="counter">2045</div>
+                        <div class="counter">2</div> 
                         <div class="stat-info">
-                           <h5 class="pt-2">Experience </h5>
+                           <h5 class="pt-2">Experience Year</h5>
                         </div>
                      </div>
                   </div>
                   <div class="col-md-3 col-sm-6 col-6 stats-grid-2">
                      <div class=" stats-grid">
-                        <div class="counter">350</div>
+                        <div class="counter">35.000</div>
                         <div class="stat-info">
-                           <h5 class="pt-2"> Staff</h5>
+                           <h5 class="pt-2"> Staffs</h5>
                         </div>
                      </div>
                   </div>
                   <div class="col-md-3 col-sm-6 col-6 stats-grid-3">
                      <div class=" stats-grid">
-                        <div class="counter">1000</div>
+                        <div class="counter">648.700</div>
                         <div class="stat-info">
-                           <h5 class="pt-2"> Coffee</h5>
+                           <h5 class="pt-2">Accounts</h5>
                         </div>
                      </div>
                   </div>
                   <div class="col-md-3 col-sm-6 col-6 stats-grid-4">
                      <div class=" stats-grid">
-                        <div class="counter">650</div>
+                        <div class="counter">1.572.769</div>
                         <div class="stat-info">
-                           <h5 class="pt-2"> Pojects </h5>
+                           <h5 class="pt-2"> Transactions </h5>
                         </div>
                      </div>
                   </div>
@@ -307,7 +304,7 @@
                         </div>
                         <div class="col-lg-9 col-md-8 col-sm-7 news-agile-text ">
                            <p>
-                              Such a good system , it help me a lot with various utilities.
+                              Such a good service, it help me a lot with various utilities.
                            </p>
                            <h4 class="mt-3">Milky Deo 
                            </h4>
@@ -334,8 +331,8 @@
                            <img src="<c:url value='/template/home/images/c3.jpg'/>" alt="" class="image-fluid">
                         </div>
                         <div class="col-lg-9 col-md-8 col-sm-7 news-agile-text ">
-                           <p>Ms. Hoang Thi Thuong Huyen - the 1 millionth customer of E-Banking, said:” I am honored to become a very lucky customer of TPBank. Although I am currently using banking 
-                              services of many other banks, TPBank especially gave me a feeling of friendliness, young and dynamic that always takes care and understands customers’ demand, 
+                           <p>” I am honored to become a very lucky customer of bank. Although I am currently using banking 
+                              services of many other banks, bank especially gave me a feeling of friendliness, young and dynamic that always takes care and understands customers’ demand, 
                               providing most convenient services for clients. 
                            </p>
                            <h4 class="mt-3"> Hoang Thi Thuong Huyen
@@ -363,54 +360,18 @@
          <section >
             <div class="container py-lg-5 py-md-5 py-sm-4 py-4">
                <div class="">
-                  <div class="row footer-agile-grids ">
-                     <div class="col-lg-4 col-md-4 col-sm-12 wthree-left-right">
-                        <h4 class="pb-lg-3 pb-3">About Us</h4>
-                        <div class="footer-info">
-                           <p>always accompanies, shares and provides the best financial and banking services for customers; commits to deliver the best values to shareholders; creates a professional,
-                               friendly working environment, career opportunities and rewarding benefits 
-                               for all employees; and pioneers in community development.</p>
-                        </div>
-                        <div class="icons mt-lg-4 mt-3 text-left">
-                           <ul>
-                              <li><a href="#"><span class="fab fa-facebook-f"></span></a></li>
-                              <li><a href="#"><span class="fas fa-envelope"></span></a></li>
-                              <li><a href="#"><span class="fas fa-rss"></span></a></li>
-                              <li><a href="#"><span class="fab fa-vk"></span></a></li>
-                           </ul>
-                        </div>
-                     </div>
-                     <div class="col-lg-4 col-md-4 col-sm-12 wthree-left-right">
-                        <h4 class="pb-lg-3 pb-3">Nav Links</h4>
-                        <nav class="border-line">
-                           <ul class="nav flex-column">
-                              <li class="nav-item active">
-                                 <a class="nav-link" href="index.html">Home <span class="sr-only">(current)</span></a>
-                              </li>
-                              <li class="nav-item">
-                                 <a href="#about" class="nav-link scroll">About</a>
-                              </li>
-                              <li class="nav-item">
-                                 <a href="#service" class="nav-link scroll">Partners</a>
-                              </li>
-                              
-                              <li class="nav-item">
-                                 <a href="#stats" class="nav-link scroll">Stats</a>
-                              </li>
-                           </ul>
-                        </nav>
-                     </div>
-                     <div class="wthree-left-right col-lg-4 col-md-4 col-sm-12">
-                        <h4 class="pb-lg-3 pb-3">Get In Touch</h4>
-                        <div class="bottom-para pb-3">
-                           <p>410 C Hanoi University<br>Km9 Nguyen Trai- Nam Tu liem -  Hanoi</p>
+                  <div class="row footer-agile-grids ">                    
+                     <div class="wthree-left-right col-lg-12 col-md-12 col-sm-12">
+                        <h4 class="pb-lg-3 pb-3">Contact</h4>
+                        <div class="bottom-para pb-12">
+                           <p>410 C Hanoi University Km9 Nguyen Trai- Nam Tu liem -  Hanoi</p>
                         </div>
                         <div class="bottom-para">
                            <p>+(000) 123 4565 32 <br>+(010) 123 4565 354</p>
                         </div>
                         <div class="bottom-para pt-3">
-                           <p><a href="mailto:info@example.com">info@example1.com</a> 
-                              <br><a href="mailto:info@example.com">info@example2.com</a>
+                           <p><a href="mailto:info@example.com">group2ebanking@gmail.com </a> 
+                              <br><a href="mailto:info@example.com">1801040055@s.hanu.edu.vn</a>
                            </p>
                         </div>
                      </div>
@@ -434,7 +395,7 @@
                <div class="modal-body">
                   <img src="<c:url value='/template/home/images/b2.jpg'/>" alt="" class="img-fluid">
                   <p>You can now use a E-Banking savings account to generate immediate extra cash 
-                     from your existing funds and gain additional creditworthiness. You can 
+                     from your existing funds and gain additional credit worthiness. You can 
                      select the amount of time you are comfortable to lock away your money and 
                      take advantage of a secure savings account that offers a competitive interest rate.
                      E-Banking supports small individual and family businesses by offering competitive business loans to

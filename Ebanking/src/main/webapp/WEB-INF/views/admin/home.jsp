@@ -265,8 +265,8 @@
         // Pie chart flotPie1  End
         // cellPaiChart
         var cellPaiChart = [
-            { label: "Direct Sell", data: [[1,65]], color: '#5b83de'},
-            { label: "Channel Sell", data: [[1,35]], color: '#00bfa5'}
+            { label: "Customer", data: [[1,65]], color: '#5b83de'},
+            { label: "Guest", data: [[1,35]], color: '#00bfa5'}
         ];
         $.plot('#cellPaiChart', cellPaiChart, {
             series: {

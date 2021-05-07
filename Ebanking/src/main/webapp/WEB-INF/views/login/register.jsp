@@ -80,7 +80,7 @@
 					<button type="submit" class="btn btn-success btn-flat m-b-30 m-t-30">Register</button>
 					<hr>					
 					<div class="register-link m-t-15 text-center">
-						<p>Already have account ? <a href="<c:url value='/login'/>">Login</a></p>
+						<p>Already have account ? <a href="<c:url value='/login'/>">Click here to login</a></p>
 					</div>
 				</form:form>
 			</div>

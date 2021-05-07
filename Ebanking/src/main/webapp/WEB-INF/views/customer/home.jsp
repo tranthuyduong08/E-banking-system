@@ -93,7 +93,7 @@
 									<div class="stat-text">
 										<span class="count">${totalTransactionTime}</span>
 									</div>
-									<div class="stat-heading">Transfer Times</div>
+									<div class="stat-heading">Transactions</div>
 								</div>
 							</div>
 						</div>

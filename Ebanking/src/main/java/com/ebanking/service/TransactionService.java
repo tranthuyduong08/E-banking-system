@@ -29,9 +29,13 @@ public interface TransactionService {
 	
 	public void createWithdraw(Transaction transaction, User user, HttpServletRequest request);
 	
+	public void createTransfer(Transaction transaction, User user, User receiver, HttpServletRequest request);
+	
 	public List<Transaction> getCurrentUserDeposit(User user);
 	
 	public List<Transaction> getCurrentUserWithdraw(User user);
+	
+	public List<Transaction> getCurrentUserTranfer(User user);
 	
 	public void acceptDepositRecord(Transaction transaction);
 }

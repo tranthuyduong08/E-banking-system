@@ -78,7 +78,20 @@ public class CurrentAccountServiceImpl implements CurrentAccountService {
 		currentAccount.setBalance(newBalance);
 		currentAccountRepository.save(currentAccount);
 	}
-
+	
+	@Override
+	public void transfer(User user, User receiver, Transaction transaction, HttpServletRequest request) {
+		CurrentAccount currentAccountR = receiver.getCurrentAccounts();
+		int oldBalance = currentAccountR.getBalance();
+		currentAccountR.setBalance(oldBalance + transaction.getAmount());
+		currentAccountRepository.save(currentAccountR);
+		
+		CurrentAccount currentAccountU = user.getCurrentAccounts();
+		int oB = currentAccountU.getBalance();
+		currentAccountU.setBalance(oB - transaction.getAmount());
+		currentAccountRepository.save(currentAccountU);	
+	}
+	
 	@Override
 	public CurrentAccount createNewCurrentAccount(User user) {
 		InterestRate interestRate = interestRateRepository.findOne((long)1);
@@ -94,6 +107,11 @@ public class CurrentAccountServiceImpl implements CurrentAccountService {
 	}
 
 	@Override
+	public void setInitialBalance(CurrentAccount currentAccount, HttpServletRequest request) {
+		currentAccount.setBalance(Integer.parseInt(request.getParameter("balance")));
+	}
+	
+	@Override
 	public void changePinCode(CurrentAccount currentAccount, HttpServletRequest request) {
 		currentAccount.setPinCode(request.getParameter("pinCode"));
 	}
@@ -108,4 +126,11 @@ public class CurrentAccountServiceImpl implements CurrentAccountService {
 		currentAccount.setStatus(0);
 	}
 
+	@Override
+	public void receiveTransfer(User receiver, Transaction transaction, HttpServletRequest request) {
+		CurrentAccount currentAccount = receiver.getCurrentAccounts();
+		int oldBalance = currentAccount.getBalance();
+		currentAccount.setBalance(oldBalance + transaction.getAmount());
+		currentAccountRepository.save(currentAccount);
+	}
 }

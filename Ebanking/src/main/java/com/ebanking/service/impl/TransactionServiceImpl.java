@@ -103,6 +103,17 @@ public class TransactionServiceImpl implements TransactionService{
 		transaction.setDescription(request.getParameter("description"));
 		transaction.setStatus(1);
 	}
+	
+	@Override
+	public void createTransfer(Transaction transaction, User user, User receiver, HttpServletRequest request) {
+		transaction.setCurrentAccount(user.getCurrentAccounts());
+		transaction.setAmount(Integer.parseInt(request.getParameter("amount")));
+		transaction.setDate(new Date());
+		transaction.setReceiver(receiver);
+		transaction.setType("Transfer");
+		transaction.setDescription(request.getParameter("description"));
+		transaction.setStatus(1);
+	}
 
 	@Override
 	public List<Transaction> getCurrentUserDeposit(User user) {
@@ -122,6 +133,18 @@ public class TransactionServiceImpl implements TransactionService{
 		List<Transaction> transactions = new ArrayList<>();
 		for (Transaction transaction : allTransaction) {
 			if (transaction.getReceiver().getId() == user.getId() && transaction.getType().equals("Withdraw")) {
+				transactions.add(transaction);
+			}
+		}
+		return transactions;
+	}
+	
+	@Override
+	public List<Transaction> getCurrentUserTranfer(User user) {
+		List<Transaction> allTransaction = findAll();
+		List<Transaction> transactions = new ArrayList<>();
+		for (Transaction transaction : allTransaction) {
+			if (transaction.getReceiver().getId() == user.getId() && transaction.getType().equals("Transfer")) {
 				transactions.add(transaction);
 			}
 		}

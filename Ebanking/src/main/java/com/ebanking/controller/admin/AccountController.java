@@ -62,6 +62,22 @@ public class AccountController {
 			ModelAndView mav = new ModelAndView("admin/account/current-account-detail");
 			return mav;
 		}
+		
+		@RequestMapping(value = "/admin/current-account/detail/{id}/set-balance", method = RequestMethod.GET)
+		public ModelAndView adminSetCurrentAccountBalance(@PathVariable("id") long id, ModelMap modelMap) {
+			CurrentAccount currentAccount = currentAccountService.find(id);
+			modelMap.addAttribute("currentAccount", currentAccount);
+			ModelAndView mav = new ModelAndView("admin/account/current-account-set-balance");
+			return mav;
+		}
+		
+		@RequestMapping(value = "/admin/current-account/detail/{id}/set-balance", method = RequestMethod.POST)
+		public String adminSetCurrentAccountBalance(@PathVariable("id") long id, HttpServletRequest request) {
+			CurrentAccount currentAccount = currentAccountService.find(id);
+			currentAccountService.setInitialBalance(currentAccount, request);
+			currentAccountService.save(currentAccount);
+			return "redirect:/admin/current-account/detail/" + id;
+		}
 
 		@RequestMapping(value = "/admin/saving-account", method = RequestMethod.GET)
 		public ModelAndView adminViewSavingAccount(ModelMap modelMap) {

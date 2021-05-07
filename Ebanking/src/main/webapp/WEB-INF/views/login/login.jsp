@@ -10,7 +10,7 @@
                 </a>
             </div>
             <br>
-            <div class="login-form">
+            <div class="login-form">            	
             	<c:if test="${param.incorrectAccount != null }">
 					<div class ="alert alert-danger" align="center"> Username or password is incorrect</div>
 				</c:if>     
@@ -29,7 +29,7 @@
                     </div>
                     <button type="submit" class="btn btn-success btn-flat m-b-30 m-t-30">Login</button>        
                     <div class="register-link m-t-15 text-center">
-                        <p>Don't have account ? <a href="<c:url value='/register'/>"> Register Here</a></p>
+                        <p>Don't have account ? <a href="<c:url value='/register'/>">Click here to register</a></p>
                     </div>
                 </form>
             </div>

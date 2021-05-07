@@ -64,7 +64,7 @@
 									<label>Balance </label>
 								</div>
 								<div class="col-12 col-md-8">
-									<a>${currentAccount.balance}</a>
+									<a>${currentAccount.balance}</a> VND
 								</div>
 							</div>
 							<div class="row form-group">
@@ -99,6 +99,13 @@
 						</div>
 					</div>
 				</div>
+			</div>
+		</div>
+		<div class="row justify-content-center">
+			<div class="col-lg-4">
+				<a href="<c:url value='/admin/current-account/detail/${currentAccount.id}/set-balance'/>">
+					<button type="button" class="btn btn-success btn-lg btn-block"><i class="fa fa-money"></i> Set Initial Balance</button>
+				</a>
 			</div>
 		</div>
 	</div>

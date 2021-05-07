@@ -131,6 +131,16 @@ public class TransactionController {
 	}
 
 	//TRANSFER
+	@RequestMapping(value = "/customer/transaction/transfer/history", method = RequestMethod.GET)
+	public ModelAndView customerViewTransfer(ModelMap modelMap) {
+		User user = userService.getCurrentUser();
+
+		List<Transaction> transactions = transactionService.getCurrentUserTranfer(user);
+		modelMap.put("transaction", transactions);
+		ModelAndView mav = new ModelAndView("customer/transaction/transfer-list");
+		return mav;
+	}
+	
 	@RequestMapping(value = "/customer/transaction/transfer", method = RequestMethod.GET)
 	public ModelAndView customerViewTransfer(ModelMap modelMap, Map<String, Object> model) {
 		User user = userService.getCurrentUser();
@@ -142,19 +152,36 @@ public class TransactionController {
 			modelMap.addAttribute("totalAmount", 0);
 		}
 		
+		List<Transaction> transactions = transactionService.getCurrentUserTranfer(user);
+		modelMap.addAttribute("transferTime", transactions.size());
+		
 		ModelAndView mav = new ModelAndView("customer/transaction/create-transfer");
 		return mav;
 	}
-
-	@RequestMapping(value = "/customer/transaction/transfer/same-bank", method = RequestMethod.GET)
-	public ModelAndView customerTransferSameBank() {
-		ModelAndView mav = new ModelAndView("customer/transaction/transfer-same-bank");
-		return mav;
+	
+	@RequestMapping(value = "/customer/transaction/transfer", method = RequestMethod.POST)
+	public String customerTransferSameBank(HttpServletRequest request) {
+		String accNo = request.getParameter("accNo");
+		long id = 0;
+		List<CurrentAccount> cAs = currentAccountService.findAll();
+		for(CurrentAccount cA : cAs) {
+			if (cA.getAccNo().equals(accNo)) {
+				id = cA.getId();
+				break;
+			}
+		}
+		User receiver = userService.find(id);
+		System.out.println(receiver==null);
+		User user = userService.getCurrentUser();
+		Transaction transaction = new Transaction();
+		transactionService.createTransfer(transaction, user, receiver, request);
+		currentAccountService.transfer(user, receiver, transaction, request);
+		transactionService.save(transaction);
+		return "redirect:/customer/transaction/transfer";
 	}
 
 	@RequestMapping(value = "/customer/transaction/transfer/other-bank", method = RequestMethod.GET)
-	public ModelAndView customerTransferOtherBank() {
-		ModelAndView mav = new ModelAndView("customer/transaction/transfer-other-bank");
-		return mav;
+	public String customerTransferOtherBank() {
+		return "";
 	}
 }
